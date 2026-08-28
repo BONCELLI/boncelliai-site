@@ -9,7 +9,7 @@ export default function About() {
     <RevealSection id="about" className="bg-navy-50/60 py-24 sm:py-32">
       <div className="mx-auto grid max-w-6xl gap-14 px-4 sm:px-6 lg:grid-cols-5 lg:items-center">
         <div className="lg:col-span-3">
-          <span className="text-sm font-semibold uppercase tracking-wide text-accent-dark">
+          <span className="font-mono text-sm font-semibold uppercase tracking-wide text-accent-dark">
             {t.about.eyebrow}
           </span>
           <h2 className="mt-3 text-3xl font-semibold tracking-tight text-navy-900 sm:text-4xl">
@@ -24,7 +24,7 @@ export default function About() {
         </div>
 
         <div className="lg:col-span-2">
-          <div className="rounded-2xl border border-navy-100 bg-white p-8 shadow-card">
+          <div className="rounded-2xl border border-navy-100 bg-paper p-8 shadow-card">
             <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-navy-900 text-accent-light">
               <Globe2 size={22} />
             </div>

@@ -28,7 +28,7 @@ export default function Hero() {
       className="relative overflow-hidden bg-navy-900 pb-24 pt-40 sm:pb-32 sm:pt-48"
     >
       <div className="pointer-events-none absolute inset-0 bg-hero-glow" />
-      <div className="pointer-events-none absolute -left-24 top-1/3 h-72 w-72 rounded-full bg-brand/20 blur-3xl" />
+      <div className="pointer-events-none absolute -left-24 top-1/3 h-72 w-72 rounded-full bg-accent-dark/25 blur-3xl" />
       <div className="pointer-events-none absolute -right-16 top-10 h-64 w-64 rounded-full bg-accent/20 blur-3xl" />
 
       <motion.div
@@ -39,7 +39,7 @@ export default function Hero() {
       >
         <motion.span
           variants={item}
-          className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-xs font-medium text-accent-light"
+          className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 font-mono text-xs font-medium uppercase tracking-wide text-accent-light"
         >
           <Sparkles size={14} />
           {t.hero.eyebrow}
@@ -49,7 +49,7 @@ export default function Hero() {
           {titleLines.map((line, i) => (
             <motion.span key={i} variants={item} className="block">
               {i === titleLines.length - 1 ? (
-                <span className="bg-gradient-to-r from-accent-light to-brand-light bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-accent-light to-accent bg-clip-text text-transparent">
                   {line}
                 </span>
               ) : (

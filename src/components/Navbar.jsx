@@ -31,16 +31,16 @@ export default function Navbar() {
         <div
           className={`flex items-center justify-between rounded-2xl border px-4 py-3 backdrop-blur-md transition-all duration-300 sm:px-6 ${
             scrolled
-              ? "border-navy-100 bg-white/85 shadow-card"
+              ? "border-navy-100 bg-paper/90 shadow-card"
               : "border-white/10 bg-navy-900/40"
           }`}
         >
-          <a
-            href="#top"
-            className="font-heading text-lg font-semibold tracking-tight"
-          >
-            <span className={scrolled ? "text-navy-900" : "text-white"}>Boncelli</span>
-            <span className="text-accent">AI</span>
+          <a href="#top" className="flex items-center" aria-label="BoncelliAI">
+            <img
+              src={scrolled ? "/logo/logo-horizontal.svg" : "/logo/logo-horizontal-negatif.svg"}
+              alt="BoncelliAI"
+              className="h-8 w-auto sm:h-9"
+            />
           </a>
 
           <nav className="hidden items-center gap-8 md:flex">
@@ -86,7 +86,7 @@ export default function Navbar() {
               transition={{ duration: 0.25, ease: "easeOut" }}
               className="overflow-hidden md:hidden"
             >
-              <div className="mt-2 flex flex-col gap-1 rounded-2xl border border-navy-100 bg-white p-4 shadow-card">
+              <div className="mt-2 flex flex-col gap-1 rounded-2xl border border-navy-100 bg-paper p-4 shadow-card">
                 {links.map((link) => (
                   <button
                     key={link.id}

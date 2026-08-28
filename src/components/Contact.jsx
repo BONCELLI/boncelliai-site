@@ -47,7 +47,7 @@ export default function Contact() {
     <RevealSection id="contact" className="bg-navy-900 py-24 sm:py-32">
       <div className="mx-auto grid max-w-6xl gap-12 px-4 sm:px-6 lg:grid-cols-5">
         <div className="lg:col-span-2">
-          <span className="text-sm font-semibold uppercase tracking-wide text-accent-light">
+          <span className="font-mono text-sm font-semibold uppercase tracking-wide text-accent-light">
             {t.contact.eyebrow}
           </span>
           <h2 className="mt-3 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
@@ -73,7 +73,7 @@ export default function Contact() {
         </div>
 
         <form onSubmit={handleSubmit} className="lg:col-span-3">
-          <div className="rounded-2xl border border-white/10 bg-white p-6 shadow-card sm:p-8">
+          <div className="rounded-2xl border border-white/10 bg-paper p-6 shadow-card sm:p-8">
             <div className="grid gap-5 sm:grid-cols-2">
               <Field
                 label={t.contact.form.name}

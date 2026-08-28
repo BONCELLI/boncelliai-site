@@ -3,42 +3,40 @@ export default {
   content: ["./index.html", "./src/**/*.{js,jsx}"],
   theme: {
     extend: {
-      // Brand palette — dark navy base with a vivid cyan accent (tech, professional).
+      // Brand palette from the BoncelliAI logo kit — ink navy + indigo accent on warm paper.
       colors: {
         navy: {
-          50: "#f1f5fb",
-          100: "#dbe4f0",
-          200: "#b3c5e0",
-          300: "#7f9dc7",
-          400: "#4f70a0",
-          500: "#2f4d78",
-          600: "#1e355c",
-          700: "#152945",
-          800: "#0f1d33",
-          900: "#0b1220",
-          950: "#070c15",
+          50: "#f1f1f6",
+          100: "#e1e1ec",
+          200: "#c3c4da",
+          300: "#9a9cbe",
+          400: "#6d7099",
+          500: "#4c4f79",
+          600: "#383b5e",
+          700: "#262949",
+          800: "#191c34",
+          900: "#101323", // Encre — brand ink
+          950: "#0a0c18",
         },
         accent: {
-          DEFAULT: "#06b6d4",
-          light: "#22d3ee",
-          dark: "#0891b2",
+          DEFAULT: "#5b4bff", // Accent — brand indigo
+          light: "#8477ff",
+          dark: "#4636cc",
         },
-        brand: {
-          DEFAULT: "#2563eb",
-          light: "#3b82f6",
-        },
+        paper: "#fbfaf7", // Papier — brand warm white
       },
       fontFamily: {
         heading: ["Space Grotesk", "sans-serif"],
         body: ["DM Sans", "sans-serif"],
+        mono: ["IBM Plex Mono", "monospace"],
       },
       boxShadow: {
-        card: "0 1px 2px 0 rgba(11,18,32,0.06), 0 8px 24px -8px rgba(11,18,32,0.12)",
-        "card-hover": "0 4px 12px 0 rgba(6,182,212,0.12), 0 16px 40px -12px rgba(11,18,32,0.25)",
+        card: "0 1px 2px 0 rgba(16,19,35,0.06), 0 8px 24px -8px rgba(16,19,35,0.12)",
+        "card-hover": "0 4px 12px 0 rgba(91,75,255,0.14), 0 16px 40px -12px rgba(16,19,35,0.25)",
       },
       backgroundImage: {
         "hero-glow":
-          "radial-gradient(60% 60% at 50% 0%, rgba(6,182,212,0.18) 0%, rgba(11,18,32,0) 70%)",
+          "radial-gradient(60% 60% at 50% 0%, rgba(91,75,255,0.20) 0%, rgba(16,19,35,0) 70%)",
       },
     },
   },

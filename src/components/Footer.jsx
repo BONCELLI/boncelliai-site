@@ -15,8 +15,8 @@ export default function Footer() {
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="grid gap-10 sm:grid-cols-3">
           <div>
-            <a href="#top" className="font-heading text-lg font-semibold text-white">
-              Boncelli<span className="text-accent">AI</span>
+            <a href="#top" aria-label="BoncelliAI" className="inline-block">
+              <img src="/logo/logo-horizontal-negatif.svg" alt="BoncelliAI" className="h-8 w-auto" />
             </a>
             <p className="mt-3 max-w-xs text-sm leading-relaxed">{t.footer.tagline}</p>
           </div>
@@ -58,7 +58,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col gap-2 border-t border-white/10 pt-6 text-xs sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-12 flex flex-col gap-2 border-t border-white/10 pt-6 font-mono text-xs sm:flex-row sm:items-center sm:justify-between">
           <p>
             © {year} {siteConfig.brandName}. {t.footer.rights}
           </p>

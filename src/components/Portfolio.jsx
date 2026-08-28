@@ -11,10 +11,10 @@ export default function Portfolio() {
   const { t } = useLanguage();
 
   return (
-    <RevealSection id="portfolio" className="bg-white py-24 sm:py-32">
+    <RevealSection id="portfolio" className="bg-paper py-24 sm:py-32">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="mx-auto max-w-2xl text-center">
-          <span className="text-sm font-semibold uppercase tracking-wide text-accent-dark">
+          <span className="font-mono text-sm font-semibold uppercase tracking-wide text-accent-dark">
             {t.portfolio.eyebrow}
           </span>
           <h2 className="mt-3 text-3xl font-semibold tracking-tight text-navy-900 sm:text-4xl">
@@ -29,7 +29,7 @@ export default function Portfolio() {
           {Array.from({ length: PLACEHOLDER_COUNT }).map((_, index) => (
             <div
               key={index}
-              className="group cursor-default overflow-hidden rounded-2xl border border-navy-100 bg-white shadow-card transition-shadow duration-300 hover:shadow-card-hover"
+              className="group cursor-default overflow-hidden rounded-2xl border border-navy-100 bg-paper shadow-card transition-shadow duration-300 hover:shadow-card-hover"
             >
               <div className="flex aspect-video items-center justify-center bg-navy-50 text-navy-300 transition-colors duration-300 group-hover:text-accent">
                 <ImageIcon size={32} />
