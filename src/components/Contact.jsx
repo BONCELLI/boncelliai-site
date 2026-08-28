@@ -58,17 +58,28 @@ export default function Contact() {
           </p>
 
           <div className="mt-10 rounded-2xl border border-white/10 bg-white/5 p-6">
-            <h3 className="text-sm font-semibold text-white">{t.contact.upworkTitle}</h3>
-            <p className="mt-2 text-sm text-navy-300">{t.contact.upworkText}</p>
-            <a
-              href={siteConfig.fiverrUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group mt-4 inline-flex cursor-pointer items-center gap-1.5 text-sm font-semibold text-accent-light transition-colors duration-200 hover:text-accent"
-            >
-              {t.contact.upworkCta}
-              <ExternalLink size={14} className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </a>
+            <h3 className="text-sm font-semibold text-white">{t.contact.platformsTitle}</h3>
+            <p className="mt-2 text-sm text-navy-300">{t.contact.platformsText}</p>
+            <div className="mt-4 flex flex-col gap-3">
+              <a
+                href={siteConfig.upworkUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex cursor-pointer items-center gap-1.5 text-sm font-semibold text-accent-light transition-colors duration-200 hover:text-accent"
+              >
+                {t.contact.upworkCta}
+                <ExternalLink size={14} className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </a>
+              <a
+                href={siteConfig.fiverrUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex cursor-pointer items-center gap-1.5 text-sm font-semibold text-accent-light transition-colors duration-200 hover:text-accent"
+              >
+                {t.contact.fiverrCta}
+                <ExternalLink size={14} className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </a>
+            </div>
           </div>
         </div>
 

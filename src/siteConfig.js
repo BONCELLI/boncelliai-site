@@ -10,6 +10,7 @@ export const siteConfig = {
   email: "franklaro61@gmail.com",
 
   fiverrUrl: "https://www.fiverr.com/s/8xdlpVg",
+  upworkUrl: "https://www.upwork.com/freelancers/boncelli?mp_source=share",
 
   // TODO: optional social links — leave blank ("") to hide a link in the footer.
   linkedinUrl: "",
