@@ -61,7 +61,7 @@ export default function Contact() {
             <h3 className="text-sm font-semibold text-white">{t.contact.upworkTitle}</h3>
             <p className="mt-2 text-sm text-navy-300">{t.contact.upworkText}</p>
             <a
-              href={siteConfig.upworkUrl}
+              href={siteConfig.fiverrUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="group mt-4 inline-flex cursor-pointer items-center gap-1.5 text-sm font-semibold text-accent-light transition-colors duration-200 hover:text-accent"

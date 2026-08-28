@@ -85,9 +85,9 @@ export const translations = {
         success: "Merci! Votre message a été envoyé. Je vous réponds sous peu.",
         error: "Une erreur est survenue. Veuillez réessayer ou m'écrire directement.",
       },
-      upworkTitle: "Préférez Upwork?",
+      upworkTitle: "Préférez Fiverr?",
       upworkText: "Consultez mon profil, mes avis clients et contactez-moi directement.",
-      upworkCta: "Voir mon profil Upwork",
+      upworkCta: "Voir mon profil Fiverr",
     },
     footer: {
       tagline: "Automatisation IA et contenu bilingue, livrés avec rigueur.",
@@ -180,9 +180,9 @@ export const translations = {
         success: "Thanks! Your message has been sent. I'll get back to you shortly.",
         error: "Something went wrong. Please try again or email me directly.",
       },
-      upworkTitle: "Prefer Upwork?",
+      upworkTitle: "Prefer Fiverr?",
       upworkText: "Check out my profile, client reviews, and reach out directly.",
-      upworkCta: "View My Upwork Profile",
+      upworkCta: "View My Fiverr Profile",
     },
     footer: {
       tagline: "AI automation and bilingual content, delivered with rigor.",

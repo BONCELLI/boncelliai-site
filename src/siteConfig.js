@@ -7,11 +7,9 @@ export const siteConfig = {
   brandName: "BoncelliAI",
   ownerName: "Frank Laro",
 
-  // TODO: replace with your real contact email.
-  email: "hello@boncelliai.com",
+  email: "franklaro61@gmail.com",
 
-  // TODO: replace with your real Upwork profile URL.
-  upworkUrl: "https://www.upwork.com/freelancers/~your-profile-id",
+  fiverrUrl: "https://www.fiverr.com/s/8xdlpVg",
 
   // TODO: optional social links — leave blank ("") to hide a link in the footer.
   linkedinUrl: "",
