@@ -19,5 +19,5 @@ export const siteConfig = {
   // Optional: paste a form endpoint from a service like Formspree or
   // EmailJS (e.g. "https://formspree.io/f/xxxxxxx") to receive contact-form
   // submissions directly by email. Leave empty to fall back to a mailto: link.
-  contactFormEndpoint: "",
+  contactFormEndpoint: "https://formspree.io/f/xkjokall",
 };
