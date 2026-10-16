@@ -5,7 +5,7 @@ export default function Process() {
   const { t } = useLanguage();
 
   return (
-    <RevealSection id="process" className="bg-navy-50/60 py-24 sm:py-32">
+    <RevealSection id="process" className="bg-paper py-24 sm:py-32">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="mx-auto max-w-2xl text-center">
           <span className="font-mono text-sm font-semibold uppercase tracking-wide text-accent-dark">

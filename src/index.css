@@ -2,6 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ROI calculator sliders: filled track up to the thumb (--fill set inline). */
+@layer components {
+  .roi-range {
+    @apply h-2 appearance-none rounded-full bg-transparent;
+    background: linear-gradient(90deg, #8477ff 0%, #5b4bff var(--fill), rgba(255,255,255,0.12) var(--fill));
+  }
+  .roi-range::-webkit-slider-thumb {
+    @apply h-6 w-6 appearance-none rounded-full border-4 border-accent bg-white shadow-lg transition-transform duration-150;
+  }
+  .roi-range::-webkit-slider-thumb:hover {
+    transform: scale(1.12);
+  }
+  .roi-range::-moz-range-thumb {
+    @apply h-5 w-5 rounded-full border-4 border-accent bg-white shadow-lg;
+  }
+  .roi-range:focus-visible {
+    @apply ring-offset-navy-900;
+  }
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;

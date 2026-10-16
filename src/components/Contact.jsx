@@ -5,7 +5,7 @@ import { useLanguage } from "../i18n/LanguageContext.jsx";
 import { siteConfig } from "../siteConfig.js";
 import RevealSection from "./RevealSection.jsx";
 
-const STATUS = { IDLE: "idle", SUBMITTING: "submitting", SUCCESS: "success", ERROR: "error" };
+const STATUS = { IDLE: "idle", SUBMITTING: "submitting", SUCCESS: "success", MAILTO: "mailto", ERROR: "error" };
 
 export default function Contact() {
   const { t } = useLanguage();
@@ -30,13 +30,15 @@ export default function Contact() {
           body: JSON.stringify(form),
         });
         if (!response.ok) throw new Error("Form endpoint returned an error");
+        setStatus(STATUS.SUCCESS);
       } else {
         // No backend configured yet: open the visitor's email client instead.
         const subject = encodeURIComponent(`${siteConfig.brandName} — ${form.name}`);
         const body = encodeURIComponent(`${form.message}\n\n${form.email}`);
         window.location.href = `mailto:${siteConfig.email}?subject=${subject}&body=${body}`;
+        // We can't know if the visitor actually sent it, so say what really happened.
+        setStatus(STATUS.MAILTO);
       }
-      setStatus(STATUS.SUCCESS);
       setForm({ name: "", email: "", message: "" });
     } catch (error) {
       setStatus(STATUS.ERROR);
@@ -60,12 +62,12 @@ export default function Contact() {
           <div className="mt-10 rounded-2xl border border-white/10 bg-white/5 p-6">
             <h3 className="text-sm font-semibold text-white">{t.contact.platformsTitle}</h3>
             <p className="mt-2 text-sm text-navy-300">{t.contact.platformsText}</p>
-            <div className="mt-4 flex flex-col gap-3">
+            <div className="mt-3 flex flex-col gap-1">
               <a
                 href={siteConfig.upworkUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex cursor-pointer items-center gap-1.5 text-sm font-semibold text-accent-light transition-colors duration-200 hover:text-accent"
+                className="group inline-flex cursor-pointer items-center gap-1.5 py-2 text-sm font-semibold text-accent-light transition-colors duration-200 hover:text-accent"
               >
                 {t.contact.upworkCta}
                 <ExternalLink size={14} className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -74,7 +76,7 @@ export default function Contact() {
                 href={siteConfig.fiverrUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex cursor-pointer items-center gap-1.5 text-sm font-semibold text-accent-light transition-colors duration-200 hover:text-accent"
+                className="group inline-flex cursor-pointer items-center gap-1.5 py-2 text-sm font-semibold text-accent-light transition-colors duration-200 hover:text-accent"
               >
                 {t.contact.fiverrCta}
                 <ExternalLink size={14} className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -131,9 +133,10 @@ export default function Contact() {
               {status === STATUS.SUBMITTING ? t.contact.form.submitting : t.contact.form.submit}
             </motion.button>
 
-            {status === STATUS.SUCCESS && (
-              <p className="mt-4 flex items-center gap-2 text-sm font-medium text-emerald-600">
-                <CheckCircle2 size={16} /> {t.contact.form.success}
+            {(status === STATUS.SUCCESS || status === STATUS.MAILTO) && (
+              <p role="status" className="mt-4 flex items-start gap-2 text-sm font-medium text-emerald-700">
+                <CheckCircle2 size={16} className="mt-0.5 shrink-0" />
+                {status === STATUS.SUCCESS ? t.contact.form.success : t.contact.form.mailto}
               </p>
             )}
             {status === STATUS.ERROR && (

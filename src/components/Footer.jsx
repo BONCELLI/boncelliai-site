@@ -2,7 +2,7 @@ import { Mail, Linkedin, Instagram } from "lucide-react";
 import { useLanguage } from "../i18n/LanguageContext.jsx";
 import { siteConfig } from "../siteConfig.js";
 
-const SECTION_IDS = ["services", "process", "about", "contact"];
+const SECTION_IDS = ["services", "roi", "process", "faq", "contact"];
 
 export default function Footer() {
   const { t } = useLanguage();
@@ -23,12 +23,12 @@ export default function Footer() {
 
           <div>
             <h3 className="text-sm font-semibold text-white">{t.footer.linksTitle}</h3>
-            <ul className="mt-4 space-y-2.5">
+            <ul className="mt-3 space-y-0.5">
               {SECTION_IDS.map((id) => (
                 <li key={id}>
                   <button
                     onClick={() => scrollTo(id)}
-                    className="cursor-pointer text-sm transition-colors duration-200 hover:text-accent-light"
+                    className="cursor-pointer py-2 text-sm transition-colors duration-200 hover:text-accent-light"
                   >
                     {t.nav[id]}
                   </button>

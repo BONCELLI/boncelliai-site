@@ -10,7 +10,12 @@ const LanguageContext = createContext(null);
 function detectInitialLanguage() {
   if (typeof window === "undefined") return DEFAULT_LANGUAGE;
 
-  const stored = window.localStorage.getItem(STORAGE_KEY);
+  let stored = null;
+  try {
+    stored = window.localStorage.getItem(STORAGE_KEY);
+  } catch {
+    // Storage blocked (private mode, strict settings): fall back to browser language.
+  }
   if (stored && LANGUAGES.includes(stored)) return stored;
 
   const browserLang = window.navigator.language?.slice(0, 2);
@@ -22,7 +27,11 @@ export function LanguageProvider({ children }) {
 
   useEffect(() => {
     document.documentElement.lang = language;
-    window.localStorage.setItem(STORAGE_KEY, language);
+    try {
+      window.localStorage.setItem(STORAGE_KEY, language);
+    } catch {
+      // Non-critical: the choice just won't be remembered.
+    }
   }, [language]);
 
   const toggleLanguage = () => {

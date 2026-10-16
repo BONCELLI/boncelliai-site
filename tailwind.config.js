@@ -35,6 +35,8 @@ export default {
         "card-hover": "0 4px 12px 0 rgba(91,75,255,0.14), 0 16px 40px -12px rgba(16,19,35,0.25)",
       },
       backgroundImage: {
+        grid:
+          "linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)",
         "hero-glow":
           "radial-gradient(60% 60% at 50% 0%, rgba(91,75,255,0.20) 0%, rgba(16,19,35,0) 70%)",
       },
