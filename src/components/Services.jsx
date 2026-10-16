@@ -1,10 +1,10 @@
 import { motion } from "framer-motion";
-import { Bot, Mic, Clapperboard } from "lucide-react";
+import { Bot, Workflow, DatabaseZap, Plug } from "lucide-react";
 import { useLanguage } from "../i18n/LanguageContext.jsx";
 import RevealSection from "./RevealSection.jsx";
 
-// One icon per service, in the same order as the FR/EN `services.items` arrays.
-const ICONS = [Bot, Mic, Clapperboard];
+// One icon per use case, in the same order as the FR/EN `services.items` arrays.
+const ICONS = [Bot, Workflow, DatabaseZap, Plug];
 
 export default function Services() {
   const { t } = useLanguage();
@@ -24,7 +24,7 @@ export default function Services() {
           </p>
         </div>
 
-        <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-16 grid gap-6 sm:grid-cols-2">
           {t.services.items.map((service, index) => {
             const Icon = ICONS[index];
             return (
@@ -33,22 +33,38 @@ export default function Services() {
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.5, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 0.5, delay: (index % 2) * 0.1, ease: [0.22, 1, 0.36, 1] }}
                 whileHover={{ y: -6 }}
-                className="group cursor-default rounded-2xl border border-navy-100 bg-paper p-8 shadow-card transition-shadow duration-300 hover:border-accent/30 hover:shadow-card-hover"
+                className="group flex cursor-default gap-5 rounded-2xl border border-navy-100 bg-paper p-8 shadow-card transition-shadow duration-300 hover:border-accent/30 hover:shadow-card-hover"
               >
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-navy-900 text-accent-light transition-colors duration-300 group-hover:bg-accent group-hover:text-navy-900">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-navy-900 text-accent-light transition-colors duration-300 group-hover:bg-accent group-hover:text-white">
                   <Icon size={22} />
                 </div>
-                <h3 className="mt-6 text-lg font-semibold text-navy-900">
-                  {service.title}
-                </h3>
-                <p className="mt-3 text-sm leading-relaxed text-navy-500">
-                  {service.description}
-                </p>
+                <div>
+                  <h3 className="text-lg font-semibold text-navy-900">{service.title}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-navy-500">
+                    {service.description}
+                  </p>
+                </div>
               </motion.div>
             );
           })}
+        </div>
+
+        <div className="mt-14 text-center">
+          <p className="font-mono text-xs font-semibold uppercase tracking-wide text-navy-400">
+            {t.services.stackTitle}
+          </p>
+          <ul className="mt-4 flex flex-wrap justify-center gap-2.5">
+            {t.services.stack.map((tool) => (
+              <li
+                key={tool}
+                className="rounded-full border border-navy-100 bg-white px-4 py-1.5 text-sm font-medium text-navy-700 shadow-sm"
+              >
+                {tool}
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </RevealSection>

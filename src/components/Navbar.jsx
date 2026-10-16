@@ -4,7 +4,7 @@ import { Menu, X } from "lucide-react";
 import { useLanguage } from "../i18n/LanguageContext.jsx";
 import LanguageSwitcher from "./LanguageSwitcher.jsx";
 
-const SECTION_IDS = ["services", "about", "portfolio", "contact"];
+const SECTION_IDS = ["services", "process", "about", "contact"];
 
 export default function Navbar() {
   const { t } = useLanguage();

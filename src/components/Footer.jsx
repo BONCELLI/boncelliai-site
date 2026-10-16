@@ -2,7 +2,7 @@ import { Mail, Linkedin, Instagram } from "lucide-react";
 import { useLanguage } from "../i18n/LanguageContext.jsx";
 import { siteConfig } from "../siteConfig.js";
 
-const SECTION_IDS = ["services", "about", "portfolio", "contact"];
+const SECTION_IDS = ["services", "process", "about", "contact"];
 
 export default function Footer() {
   const { t } = useLanguage();

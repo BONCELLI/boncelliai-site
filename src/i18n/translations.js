@@ -8,78 +8,112 @@
 export const translations = {
   fr: {
     nav: {
-      services: "Services",
+      services: "Solutions",
+      process: "Méthode",
       about: "À propos",
-      portfolio: "Portfolio",
       contact: "Contact",
       cta: "Réserver un appel",
     },
     hero: {
-      eyebrow: "Automatisation IA · Voix-off FR-CA · Vidéo",
-      title: "Des systèmes intelligents,\ndes contenus qui parlent votre langue.",
+      eyebrow: "Automatisation IA · Agents · n8n",
+      title: "Automatisez votre entreprise,\nlaissez l'IA faire le travail répétitif.",
       subtitle:
-        "Je conçois des agents et automatisations IA (n8n, Claude, OpenAI) pour faire gagner du temps à votre entreprise, et je livre du contenu voix-off, traduction et vidéo en français canadien natif — un duo rare qui simplifie vos projets bilingues.",
+        "Je conçois des agents IA et des workflows sur mesure (n8n, Claude, OpenAI) qui répondent à vos clients, traitent vos données et relient vos outils — pour vous faire gagner des heures chaque semaine.",
       ctaPrimary: "Réservez un appel",
-      ctaSecondary: "Voir mes services",
+      ctaSecondary: "Voir les solutions",
       badge: "Disponible pour de nouveaux projets",
+      flow: {
+        trigger: "Déclencheur",
+        triggerText: "Nouveau courriel client",
+        agent: "Agent IA",
+        agentText: "Analyse et rédige la réponse",
+        action: "Action",
+        actionText: "Envoi + mise à jour du CRM",
+      },
+      stats: [
+        { value: "24/7", label: "Workflows toujours actifs" },
+        { value: "FR / EN", label: "Support bilingue natif" },
+        { value: "100 %", label: "Sur mesure, sans verrouillage" },
+      ],
     },
     services: {
-      eyebrow: "Ce que je fais",
-      title: "Trois expertises, un seul partenaire",
+      eyebrow: "Ce que j'automatise",
+      title: "Des agents IA qui travaillent pour vous",
       subtitle:
-        "Des solutions concrètes pour automatiser votre travail et produire du contenu qui résonne, en français comme en anglais.",
+        "Un seul métier, maîtrisé à fond : transformer vos tâches répétitives en systèmes intelligents fiables.",
       items: [
         {
-          title: "Automatisation IA & agents",
+          title: "Agents IA conversationnels",
           description:
-            "Conception de workflows n8n et d'agents IA sur mesure avec les API Claude et OpenAI : réponse client automatisée, traitement de données, intégrations entre vos outils. Mon focus principal.",
+            "Assistants basés sur Claude ou OpenAI qui répondent à vos clients, qualifient vos prospects et ne vous sollicitent que lorsque c'est nécessaire.",
         },
         {
-          title: "Voix-off & traduction FR-CA",
+          title: "Workflows n8n sur mesure",
           description:
-            "Voix-off professionnelle et traduction en français canadien natif, pour des contenus qui sonnent juste auprès de votre audience francophone — sans perte de nuance.",
+            "Des scénarios complets qui enchaînent vos étapes manuelles : courriels, formulaires, factures, notifications — conçus, testés et documentés.",
         },
         {
-          title: "Création & montage vidéo",
+          title: "Traitement de données par IA",
           description:
-            "Montage et post-production avec Premiere Pro, DaVinci Resolve et CapCut : contenu publicitaire, réseaux sociaux ou corporatif, prêt à publier.",
+            "Extraction, classement et résumé automatiques de documents, courriels ou fichiers, avec envoi des résultats directement dans vos outils.",
+        },
+        {
+          title: "Intégrations entre vos outils",
+          description:
+            "Google Workspace, CRM, Slack, Notion, Airtable, API personnalisées : vos applications se parlent enfin, sans copier-coller.",
+        },
+      ],
+      stackTitle: "Outils maîtrisés",
+      stack: ["n8n", "Claude API", "OpenAI API", "Make", "Zapier", "Webhooks & API REST"],
+    },
+    process: {
+      eyebrow: "Méthode",
+      title: "Du besoin au système en production",
+      subtitle: "Un processus simple, transparent et sans surprise.",
+      steps: [
+        {
+          title: "Appel de cadrage",
+          description:
+            "On identifie les tâches qui vous coûtent le plus de temps et on définit ce qui vaut la peine d'être automatisé.",
+        },
+        {
+          title: "Conception et construction",
+          description:
+            "Je construis le workflow ou l'agent IA, avec des tests sur vos vrais cas d'usage avant toute mise en ligne.",
+        },
+        {
+          title: "Livraison et suivi",
+          description:
+            "Mise en production, documentation claire et ajustements après lancement pour que le système reste fiable.",
         },
       ],
     },
     about: {
       eyebrow: "À propos",
-      title: "Frank Laro — freelance bilingue, exécution technique",
+      title: "Frank Laro — spécialiste en automatisation IA",
       paragraph1:
-        "Basé au Canada, je combine une expertise technique en automatisation IA avec une maîtrise native du français canadien et un anglais professionnel courant. Cette double compétence est rare : elle me permet de livrer des projets qui exigent à la fois de la rigueur technique et une communication impeccable dans les deux langues.",
+        "Basé au Canada, je me consacre à une seule chose : construire des systèmes d'automatisation et des agents IA qui fonctionnent vraiment en production. Rigueur technique, livrables documentés et communication claire du début à la fin.",
       paragraph2:
-        "Je travaille avec des clients sur Upwork qui ont besoin d'un partenaire capable de construire des systèmes intelligents ET de produire du contenu qui parle vraiment à un marché francophone — sans jongler entre plusieurs prestataires.",
+        "Bilingue natif (français canadien et anglais), je travaille aussi bien avec des entreprises francophones qu'anglophones, sans perte de nuance dans la compréhension de vos besoins.",
       highlights: [
-        { label: "Bilingue natif", value: "FR-CA / EN" },
-        { label: "Automatisation", value: "n8n, Claude API, OpenAI API" },
-        { label: "Vidéo", value: "Premiere Pro, DaVinci Resolve, CapCut" },
-        { label: "Plateforme", value: "Upwork" },
+        { label: "Spécialité", value: "Automatisation IA" },
+        { label: "Outils", value: "n8n, Claude API, OpenAI API" },
+        { label: "Langues", value: "FR-CA / EN" },
+        { label: "Plateformes", value: "Upwork, Fiverr" },
       ],
-    },
-    portfolio: {
-      eyebrow: "Portfolio",
-      title: "Projets récents",
-      subtitle: "Une sélection de projets sera ajoutée ici prochainement.",
-      placeholderTitle: "Projet à venir",
-      placeholderText: "Étude de cas en préparation — revenez bientôt.",
-      cta: "Bientôt disponible",
     },
     contact: {
       eyebrow: "Contact",
-      title: "Discutons de votre projet",
+      title: "Parlons de votre automatisation",
       subtitle:
-        "Décrivez votre besoin — automatisation, voix-off, traduction ou vidéo — et je vous réponds rapidement.",
+        "Décrivez la tâche que vous aimeriez ne plus faire à la main — je vous réponds rapidement avec une première piste.",
       form: {
         name: "Nom",
         namePlaceholder: "Votre nom complet",
         email: "Courriel",
         emailPlaceholder: "vous@exemple.com",
         message: "Message",
-        messagePlaceholder: "Parlez-moi de votre projet...",
+        messagePlaceholder: "Quelle tâche voulez-vous automatiser?",
         submit: "Envoyer le message",
         submitting: "Envoi en cours...",
         success: "Merci! Votre message a été envoyé. Je vous réponds sous peu.",
@@ -91,7 +125,7 @@ export const translations = {
       fiverrCta: "Voir mon profil Fiverr",
     },
     footer: {
-      tagline: "Automatisation IA et contenu bilingue, livrés avec rigueur.",
+      tagline: "Automatisation IA et agents intelligents, livrés avec rigueur.",
       linksTitle: "Navigation",
       contactTitle: "Contact",
       rights: "Tous droits réservés.",
@@ -104,78 +138,112 @@ export const translations = {
 
   en: {
     nav: {
-      services: "Services",
+      services: "Solutions",
+      process: "Process",
       about: "About",
-      portfolio: "Portfolio",
       contact: "Contact",
       cta: "Book a Call",
     },
     hero: {
-      eyebrow: "AI Automation · FR-CA Voiceover · Video",
-      title: "Intelligent systems,\ncontent that speaks your audience's language.",
+      eyebrow: "AI Automation · Agents · n8n",
+      title: "Automate your business,\nlet AI handle the repetitive work.",
       subtitle:
-        "I build AI agents and automations (n8n, Claude, OpenAI) that save your business time, and I deliver native Canadian French voiceover, translation and video content — a rare pairing that simplifies your bilingual projects.",
+        "I build custom AI agents and workflows (n8n, Claude, OpenAI) that answer your customers, process your data and connect your tools — saving you hours every week.",
       ctaPrimary: "Book a Call",
-      ctaSecondary: "View My Services",
+      ctaSecondary: "View Solutions",
       badge: "Available for new projects",
+      flow: {
+        trigger: "Trigger",
+        triggerText: "New customer email",
+        agent: "AI Agent",
+        agentText: "Analyzes and drafts the reply",
+        action: "Action",
+        actionText: "Sends + updates the CRM",
+      },
+      stats: [
+        { value: "24/7", label: "Always-on workflows" },
+        { value: "FR / EN", label: "Native bilingual support" },
+        { value: "100%", label: "Custom-built, no lock-in" },
+      ],
     },
     services: {
-      eyebrow: "What I Do",
-      title: "Three skill sets, one partner",
+      eyebrow: "What I Automate",
+      title: "AI agents that work for you",
       subtitle:
-        "Concrete solutions to automate your work and produce content that resonates, in French and in English.",
+        "One craft, mastered: turning your repetitive tasks into reliable intelligent systems.",
       items: [
         {
-          title: "AI Automation & Agents",
+          title: "Conversational AI agents",
           description:
-            "Custom n8n workflows and AI agents built with the Claude and OpenAI APIs: automated customer responses, data processing, and integrations between your tools. My main focus.",
+            "Claude- or OpenAI-powered assistants that answer your customers, qualify leads and only involve you when it matters.",
         },
         {
-          title: "Voiceover & FR-CA Translation",
+          title: "Custom n8n workflows",
           description:
-            "Professional voiceover and native Canadian French translation, for content that truly resonates with your French-speaking audience — with no loss of nuance.",
+            "End-to-end scenarios that chain your manual steps: emails, forms, invoices, notifications — designed, tested and documented.",
         },
         {
-          title: "Video Creation & Editing",
+          title: "AI-powered data processing",
           description:
-            "Editing and post-production with Premiere Pro, DaVinci Resolve and CapCut: ad content, social media or corporate video, ready to publish.",
+            "Automatic extraction, sorting and summarizing of documents, emails or files, with results sent straight into your tools.",
+        },
+        {
+          title: "Tool integrations",
+          description:
+            "Google Workspace, CRM, Slack, Notion, Airtable, custom APIs: your apps finally talk to each other, no copy-pasting.",
+        },
+      ],
+      stackTitle: "Tools I work with",
+      stack: ["n8n", "Claude API", "OpenAI API", "Make", "Zapier", "Webhooks & REST APIs"],
+    },
+    process: {
+      eyebrow: "Process",
+      title: "From need to production system",
+      subtitle: "A simple, transparent process with no surprises.",
+      steps: [
+        {
+          title: "Scoping call",
+          description:
+            "We identify the tasks costing you the most time and decide what is actually worth automating.",
+        },
+        {
+          title: "Design and build",
+          description:
+            "I build the workflow or AI agent, testing on your real use cases before anything goes live.",
+        },
+        {
+          title: "Delivery and follow-up",
+          description:
+            "Go-live, clear documentation and post-launch adjustments so the system stays reliable.",
         },
       ],
     },
     about: {
       eyebrow: "About",
-      title: "Frank Laro — Bilingual Freelancer, Technical Execution",
+      title: "Frank Laro — AI Automation Specialist",
       paragraph1:
-        "Based in Canada, I combine technical expertise in AI automation with native fluency in Canadian French and professional working English. This dual skill set is rare: it lets me deliver projects that demand both technical rigor and flawless communication in both languages.",
+        "Based in Canada, I focus on one thing: building automation systems and AI agents that actually work in production. Technical rigor, documented deliverables and clear communication from start to finish.",
       paragraph2:
-        "I work with Upwork clients who need a partner who can build intelligent systems AND produce content that truly speaks to a French-speaking market — without juggling multiple vendors.",
+        "Natively bilingual (Canadian French and English), I work equally well with French- and English-speaking businesses, with no loss of nuance in understanding your needs.",
       highlights: [
-        { label: "Native Bilingual", value: "FR-CA / EN" },
-        { label: "Automation", value: "n8n, Claude API, OpenAI API" },
-        { label: "Video", value: "Premiere Pro, DaVinci Resolve, CapCut" },
-        { label: "Platform", value: "Upwork" },
+        { label: "Specialty", value: "AI Automation" },
+        { label: "Tools", value: "n8n, Claude API, OpenAI API" },
+        { label: "Languages", value: "FR-CA / EN" },
+        { label: "Platforms", value: "Upwork, Fiverr" },
       ],
-    },
-    portfolio: {
-      eyebrow: "Portfolio",
-      title: "Recent Projects",
-      subtitle: "A selection of projects will be added here soon.",
-      placeholderTitle: "Project Coming Soon",
-      placeholderText: "Case study in progress — check back soon.",
-      cta: "Coming Soon",
     },
     contact: {
       eyebrow: "Contact",
-      title: "Let's talk about your project",
+      title: "Let's talk about your automation",
       subtitle:
-        "Tell me about your needs — automation, voiceover, translation or video — and I'll get back to you quickly.",
+        "Describe the task you'd love to stop doing by hand — I'll get back to you quickly with a first approach.",
       form: {
         name: "Name",
         namePlaceholder: "Your full name",
         email: "Email",
         emailPlaceholder: "you@example.com",
         message: "Message",
-        messagePlaceholder: "Tell me about your project...",
+        messagePlaceholder: "Which task do you want to automate?",
         submit: "Send Message",
         submitting: "Sending...",
         success: "Thanks! Your message has been sent. I'll get back to you shortly.",
@@ -187,7 +255,7 @@ export const translations = {
       fiverrCta: "View My Fiverr Profile",
     },
     footer: {
-      tagline: "AI automation and bilingual content, delivered with rigor.",
+      tagline: "AI automation and intelligent agents, delivered with rigor.",
       linksTitle: "Navigation",
       contactTitle: "Contact",
       rights: "All rights reserved.",
