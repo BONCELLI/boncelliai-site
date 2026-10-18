@@ -1,6 +1,7 @@
 import { Mail, Linkedin, Instagram } from "lucide-react";
 import { useLanguage } from "../i18n/LanguageContext.jsx";
 import { siteConfig } from "../siteConfig.js";
+import Logo from "./Logo.jsx";
 
 const SECTION_IDS = ["services", "roi", "process", "faq", "contact"];
 
@@ -16,7 +17,7 @@ export default function Footer() {
         <div className="grid gap-10 sm:grid-cols-3">
           <div>
             <a href="#top" aria-label="BoncelliAI" className="inline-block">
-              <img src="/logo/logo-horizontal-negatif.svg" alt="BoncelliAI" className="h-8 w-auto" />
+              <Logo dark tagline />
             </a>
             <p className="mt-3 max-w-xs text-sm leading-relaxed">{t.footer.tagline}</p>
           </div>

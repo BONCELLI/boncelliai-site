@@ -3,6 +3,7 @@ import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { useLanguage } from "../i18n/LanguageContext.jsx";
 import LanguageSwitcher from "./LanguageSwitcher.jsx";
+import Logo from "./Logo.jsx";
 
 const SECTION_IDS = ["services", "roi", "process", "about", "faq"];
 
@@ -42,12 +43,8 @@ export default function Navbar() {
               : "border-white/10 bg-navy-900/40"
           }`}
         >
-          <a href="#top" className="flex items-center" aria-label="BoncelliAI">
-            <img
-              src={scrolled ? "/logo/logo-horizontal.svg" : "/logo/logo-horizontal-negatif.svg"}
-              alt="BoncelliAI"
-              className="h-8 w-auto sm:h-9"
-            />
+          <a href="#top" className="-m-1 flex items-center rounded-lg p-1" aria-label="BoncelliAI">
+            <Logo dark={!scrolled} />
           </a>
 
           <nav className="hidden items-center gap-8 lg:flex">
