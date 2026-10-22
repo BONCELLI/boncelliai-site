@@ -152,14 +152,18 @@ export default function WorkflowDemo() {
         </div>
 
         {/* Nodes */}
-        <ol className="flex flex-col items-stretch p-4 sm:flex-row sm:items-center sm:p-5">
+        <ol className="flex flex-col items-stretch p-4 sm:flex-row sm:items-stretch sm:p-5">
           {scenario.nodes.map((node, i) => {
             const Icon = icons[i];
             const state = i < activeNode ? "done" : i === activeNode ? "active" : "idle";
             return (
-              <li key={node.label} className="flex min-w-0 flex-1 flex-col items-stretch sm:flex-row sm:items-center">
+              <li
+                key={node.label}
+                className="flex min-w-0 flex-1 basis-0 flex-col items-stretch sm:flex-row sm:items-stretch"
+              >
+                {/* Icon sits above the text from sm up so narrow columns keep room for words. */}
                 <div
-                  className={`relative flex min-w-0 flex-1 items-center gap-2.5 rounded-xl border px-2.5 py-2.5 transition-all duration-500 ${
+                  className={`relative flex min-w-0 flex-1 items-center gap-2.5 rounded-xl border px-2.5 py-2.5 transition-all duration-500 sm:flex-col sm:items-start sm:gap-2 ${
                     state === "active"
                       ? "border-accent/70 bg-accent/15 shadow-[0_0_28px_-6px_rgba(91,75,255,0.8)]"
                       : state === "done"
@@ -179,7 +183,7 @@ export default function WorkflowDemo() {
                   >
                     {state === "done" ? <Check size={16} /> : <Icon size={16} />}
                   </span>
-                  <span className="min-w-0 text-left">
+                  <span className="min-w-0 max-w-full break-words text-left">
                     <span className="block font-mono text-[10px] uppercase tracking-wide text-accent-soft">
                       {node.label}
                     </span>
@@ -189,7 +193,7 @@ export default function WorkflowDemo() {
                 {i < scenario.nodes.length - 1 && (
                   <span
                     aria-hidden="true"
-                    className="relative mx-auto h-4 w-px overflow-hidden bg-white/10 sm:mx-0 sm:h-px sm:w-6"
+                    className="relative mx-auto h-4 w-px shrink-0 overflow-hidden bg-white/10 sm:mx-0 sm:h-px sm:w-6 sm:self-center"
                   >
                     <span
                       className="absolute inset-0 origin-top-left bg-accent-light transition-transform duration-500"
