@@ -1,0 +1,17 @@
+# BoncelliAI
+
+> Custom AI automation and AI agents (n8n, Claude API, OpenAI API) built by Frank Laro, a natively bilingual (Canadian French / English) automation specialist based in Canada, serving clients internationally. / Agents IA et automatisation sur mesure, service bilingue français / anglais.
+
+BoncelliAI designs, builds and documents AI agents and workflows that answer customers, qualify leads, process documents (invoices, contracts, emails) and connect business tools (Google Workspace, CRM, Slack, Notion, Airtable, custom APIs). Projects start with a free scoping call and are quoted at a fixed price with a clear scope. Workflows can run on the client's own account or a self-hosted n8n instance (no lock-in), include error alerts, and ship with bilingual documentation.
+
+## Pages
+
+- [Français (FR-CA)](https://www.boncelliai.com/): services, ROI calculator, process, commitments, about, FAQ and contact form
+- [English (EN-CA)](https://www.boncelliai.com/en/): same content in English
+
+## Contact
+
+- [Contact form (EN)](https://www.boncelliai.com/en/#contact)
+- [Formulaire de contact (FR)](https://www.boncelliai.com/#contact)
+- [Upwork profile](https://www.upwork.com/freelancers/boncelli?mp_source=share)
+- [Fiverr profile](https://www.fiverr.com/s/8xdlpVg)

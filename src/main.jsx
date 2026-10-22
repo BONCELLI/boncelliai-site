@@ -1,24 +1,13 @@
-import React from "react";
-import { createRoot, hydrateRoot } from "react-dom/client";
-import App from "./App.jsx";
-import { LanguageProvider, languageFromPath } from "./i18n/LanguageContext.jsx";
 import "./index.css";
 
-const language = languageFromPath(window.location.pathname);
-const container = document.getElementById("root");
-const app = (
-  <React.StrictMode>
-    <LanguageProvider language={language}>
-      <App />
-    </LanguageProvider>
-  </React.StrictMode>
-);
+// The page arrives fully prerendered, so let the browser paint it first and
+// only then download/evaluate React and hydrate. Evaluating the bundle up
+// front was delaying first paint (and LCP) by ~2.5 s on mid-range phones.
+// The app chunk is <link rel="modulepreload">-ed by scripts/prerender.mjs.
+const boot = () => import("./boot.jsx");
 
-// Production pages are prerendered (scripts/prerender.mjs): hydrate them.
-// The dev server serves an empty shell, so render from scratch there.
-if (container.firstElementChild) {
-  hydrateRoot(container, app);
+if (document.getElementById("root").firstElementChild) {
+  requestAnimationFrame(() => setTimeout(boot, 0));
 } else {
-  document.documentElement.lang = language;
-  createRoot(container).render(app);
+  boot(); // dev server: empty shell, nothing to paint yet
 }

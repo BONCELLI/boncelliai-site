@@ -4,7 +4,8 @@ import SectionHeading from "./SectionHeading.jsx";
 
 export default function About() {
   const { t } = useLanguage();
-  const [name, role] = t.about.title.split(" — ");
+  const [name, rawRole = ""] = t.about.title.split(" — ");
+  const role = rawRole.charAt(0).toUpperCase() + rawRole.slice(1);
 
   return (
     <section id="about" aria-labelledby="about-title" className="bg-paper pb-24 pt-4 sm:pb-32">

@@ -10,13 +10,27 @@ const dist = path.join(root, "dist");
 const ssrDir = path.join(root, "dist-ssr");
 
 const { render, head, pageUrl } = await import(pathToFileURL(path.join(ssrDir, "entry-server.js")).href);
-const template = await readFile(path.join(dist, "index.html"), "utf8");
+let template = await readFile(path.join(dist, "index.html"), "utf8");
+
+// Inline the (small, ~8 kB gzip) stylesheet: removes the only render-blocking
+// request, so the prerendered page paints as soon as the HTML arrives.
+const cssLink = template.match(/<link rel="stylesheet"[^>]*href="(\/assets\/[^"]+\.css)"[^>]*>/);
+if (cssLink) {
+  const css = await readFile(path.join(dist, cssLink[1]), "utf8");
+  template = template.replace(cssLink[0], () => `<style>${css}</style>`);
+}
 
 // Preload the two text fonts used above the fold so they don't swap late.
 const assets = await readdir(path.join(dist, "assets"));
 const preloadFonts = assets
   .filter((file) => /^(space-grotesk|dm-sans)-latin-wght-normal.*\.woff2$/.test(file))
   .map((file) => `<link rel="preload" href="/assets/${file}" as="font" type="font/woff2" crossorigin />`)
+  .join("\n    ");
+
+// Fetch the app chunk early (download only — it is evaluated after first paint, see src/main.jsx).
+const preloadApp = assets
+  .filter((file) => /^boot-.*\.js$/.test(file))
+  .map((file) => `<link rel="modulepreload" href="/assets/${file}" />`)
   .join("\n    ");
 
 const pages = [
@@ -27,7 +41,7 @@ const pages = [
 for (const { lang, out } of pages) {
   const html = template
     .replace("<!--app-lang-->", lang === "fr" ? "fr-CA" : "en-CA")
-    .replace("<!--app-head-->", `${head(lang)}\n    ${preloadFonts}`)
+    .replace("<!--app-head-->", `${head(lang)}\n    ${preloadFonts}\n    ${preloadApp}`)
     .replace("<!--app-html-->", render(lang));
   await mkdir(path.dirname(out), { recursive: true });
   await writeFile(out, html);

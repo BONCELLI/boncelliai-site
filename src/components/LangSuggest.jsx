@@ -44,7 +44,7 @@ export default function LangSuggest() {
       lang={otherLanguage}
       role="region"
       aria-label={copy.text}
-      className="fixed inset-x-3 top-[4.75rem] z-40 motion-safe:animate-rise-in sm:inset-x-auto sm:right-6 sm:top-auto sm:bottom-6 sm:max-w-sm"
+      className="fixed inset-x-3 bottom-[max(0.75rem,env(safe-area-inset-bottom))] z-50 motion-safe:animate-rise-in sm:inset-x-auto sm:bottom-6 sm:right-6 sm:max-w-sm"
     >
       <div className="flex items-center gap-3 rounded-2xl border border-navy-100 bg-paper/95 p-3 pl-4 shadow-card-hover backdrop-blur-md">
         <Languages size={18} aria-hidden="true" className="shrink-0 text-accent" />

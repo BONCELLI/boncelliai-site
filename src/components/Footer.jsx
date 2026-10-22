@@ -15,7 +15,7 @@ export default function Footer() {
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr_1fr]">
           <div>
-            <a href="#top" aria-label={t.a11y.home} className="inline-block rounded-lg">
+            <a href="#top" className="inline-block rounded-lg">
               <Logo dark tagline={t.hero.eyebrow} />
             </a>
             <p className="mt-4 max-w-xs text-sm leading-relaxed">{t.footer.tagline}</p>

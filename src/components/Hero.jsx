@@ -3,8 +3,8 @@ import { useLanguage } from "../i18n/LanguageContext.jsx";
 import WorkflowDemo from "./WorkflowDemo.jsx";
 
 // Entrance cascade in pure CSS (plays before JS hydrates; disabled by
-// prefers-reduced-motion in index.css). The h1 is left un-animated so it
-// paints immediately — it is the page's LCP element.
+// prefers-reduced-motion in index.css). The h1 and lead paragraph are left
+// un-animated so they paint immediately — they are the LCP candidates.
 const RISE = "motion-safe:animate-rise-in";
 const rise = (ms) => ({ animationDelay: `${ms}ms` });
 
@@ -46,12 +46,8 @@ export default function Hero() {
             ))}
           </h1>
 
-          <p
-            style={rise(120)}
-            className={`${RISE} mt-7 max-w-xl text-base leading-relaxed text-navy-200 sm:text-lg`}
-          >
-            {t.hero.subtitle}
-          </p>
+          {/* Not animated either: on phones this paragraph is the LCP candidate. */}
+          <p className="mt-7 max-w-xl text-base leading-relaxed text-navy-200 sm:text-lg">{t.hero.subtitle}</p>
 
           <div style={rise(220)} className={`${RISE} mt-9 flex flex-col gap-3 sm:flex-row`}>
             <a href="#contact" className="btn-primary group">
