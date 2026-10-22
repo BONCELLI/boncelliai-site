@@ -17,6 +17,8 @@ import LangSuggest from "./components/LangSuggest.jsx";
 
 // One shared observer animates every [data-reveal] element once it scrolls
 // into view (see index.css). Cheaper than one animation library per section.
+// `html.js` (which hides pending elements) is only set here, once React is
+// running — if the app chunk ever fails to load, the page simply stays visible.
 function useScrollReveal() {
   useEffect(() => {
     const elements = document.querySelectorAll("[data-reveal]");
@@ -24,6 +26,12 @@ function useScrollReveal() {
       elements.forEach((el) => el.classList.add("is-visible"));
       return undefined;
     }
+    // Whatever is already on screen stays shown (no fade-out/fade-in flash).
+    elements.forEach((el) => {
+      if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add("is-visible");
+    });
+    document.documentElement.classList.add("js");
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -35,7 +43,9 @@ function useScrollReveal() {
       },
       { rootMargin: "0px 0px -10% 0px", threshold: 0.12 }
     );
-    elements.forEach((el) => observer.observe(el));
+    elements.forEach((el) => {
+      if (!el.classList.contains("is-visible")) observer.observe(el);
+    });
     return () => observer.disconnect();
   }, []);
 }

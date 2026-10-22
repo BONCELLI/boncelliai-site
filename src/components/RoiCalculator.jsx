@@ -70,11 +70,15 @@ export default function RoiCalculator() {
           </div>
 
           <div className="flex flex-col justify-between gap-8 border-t border-white/10 bg-gradient-to-br from-accent/25 via-accent/10 to-transparent p-6 sm:p-10 lg:border-l lg:border-t-0">
-            <div className="space-y-7" aria-live="polite">
+            <div className="space-y-7">
               <Result icon={Clock3} label={t.roi.resultHours} value={yearlyHours} format={formatNumber} />
               <Result icon={Wallet} label={t.roi.resultValue} value={yearlyValue} format={formatMoney} />
               <p className="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-navy-100">
                 {t.roi.weeks.replace("{n}", weeks)}
+              </p>
+              {/* Screen readers get the final figures once, not every tween frame. */}
+              <p className="sr-only" aria-live="polite" suppressHydrationWarning>
+                {formatNumber(yearlyHours)} {t.roi.resultHours}. {formatMoney(yearlyValue)} {t.roi.resultValue}.
               </p>
             </div>
 
@@ -103,7 +107,7 @@ function Slider({ id, label, value, min, max, step = 1, onChange, display }) {
         <label htmlFor={id} className="text-sm font-medium text-navy-100">
           {label}
         </label>
-        <output htmlFor={id} className="shrink-0 font-mono text-base font-semibold text-white">
+        <output htmlFor={id} className="shrink-0 font-mono text-base font-semibold text-white" suppressHydrationWarning>
           {display}
         </output>
       </div>
@@ -162,7 +166,12 @@ function Result({ icon: Icon, label, value, format }) {
         <Icon size={20} />
       </span>
       <div>
-        <p className="font-heading text-4xl font-semibold tracking-tight text-white tabular-nums sm:text-5xl">
+        {/* Intl output can differ slightly between build-time Node and the browser. */}
+        <p
+          className="font-heading text-4xl font-semibold tracking-tight text-white tabular-nums sm:text-5xl"
+          aria-hidden="true"
+          suppressHydrationWarning
+        >
           {format(display)}
         </p>
         <p className="mt-1 text-sm text-navy-200">{label}</p>

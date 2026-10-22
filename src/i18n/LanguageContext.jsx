@@ -9,7 +9,7 @@ export const DEFAULT_LANGUAGE = "fr";
 export const LANGUAGE_PATHS = { fr: "/", en: "/en/" };
 
 export function languageFromPath(pathname = "/") {
-  return pathname.startsWith("/en") ? "en" : DEFAULT_LANGUAGE;
+  return /^\/en(\/|$)/.test(pathname) ? "en" : DEFAULT_LANGUAGE;
 }
 
 const LanguageContext = createContext(null);

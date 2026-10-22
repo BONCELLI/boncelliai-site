@@ -86,7 +86,8 @@ export default function Footer() {
         </div>
 
         <div className="mt-14 flex flex-col gap-2 border-t border-white/10 pt-6 font-mono text-xs sm:flex-row sm:items-center sm:justify-between">
-          <p>
+          {/* Year is baked in at build time; the client may be in a newer year. */}
+          <p suppressHydrationWarning>
             © {year} {siteConfig.brandName}. {t.footer.rights}
           </p>
           <p>{t.footer.builtWith}</p>

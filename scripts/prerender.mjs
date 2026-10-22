@@ -38,11 +38,23 @@ const pages = [
   { lang: "en", out: path.join(dist, "en", "index.html") },
 ];
 
+// Fail the build loudly rather than ship a half-prerendered page.
+const require = (ok, what) => {
+  if (!ok) throw new Error(`prerender: ${what} not found`);
+};
+require(cssLink, "stylesheet link");
+require(preloadFonts.includes("space-grotesk") && preloadFonts.includes("dm-sans"), "font files");
+require(preloadApp, "boot chunk");
+for (const marker of ["<!--app-lang-->", "<!--app-head-->", "<!--app-html-->"]) {
+  require(template.includes(marker), marker);
+}
+
 for (const { lang, out } of pages) {
+  // Function replacers: rendered text may contain "$" sequences (e.g. "$1,248.50").
   const html = template
-    .replace("<!--app-lang-->", lang === "fr" ? "fr-CA" : "en-CA")
-    .replace("<!--app-head-->", `${head(lang)}\n    ${preloadFonts}\n    ${preloadApp}`)
-    .replace("<!--app-html-->", render(lang));
+    .replace("<!--app-lang-->", () => (lang === "fr" ? "fr-CA" : "en-CA"))
+    .replace("<!--app-head-->", () => `${head(lang)}\n    ${preloadFonts}\n    ${preloadApp}`)
+    .replace("<!--app-html-->", () => render(lang));
   await mkdir(path.dirname(out), { recursive: true });
   await writeFile(out, html);
   console.log(`prerendered ${lang} -> ${path.relative(root, out)}`);
