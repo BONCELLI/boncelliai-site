@@ -1,65 +1,94 @@
-import { motion } from "framer-motion";
 import { Bot, Workflow, DatabaseZap, Plug } from "lucide-react";
 import { useLanguage } from "../i18n/LanguageContext.jsx";
-import RevealSection from "./RevealSection.jsx";
+import SectionHeading from "./SectionHeading.jsx";
 
 // One icon per use case, in the same order as the FR/EN `services.items` arrays.
 const ICONS = [Bot, Workflow, DatabaseZap, Plug];
+
+// Bento layout on desktop: wide / narrow, then narrow / wide.
+const SPANS = ["lg:col-span-4", "lg:col-span-2", "lg:col-span-2", "lg:col-span-4"];
 
 export default function Services() {
   const { t } = useLanguage();
 
   return (
-    <RevealSection id="services" className="bg-paper py-24 sm:py-32">
+    <section id="services" aria-labelledby="services-title" className="bg-paper py-24 sm:py-32">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="mx-auto max-w-2xl text-center">
-          <span className="font-mono text-sm font-semibold uppercase tracking-wide text-accent-dark">
-            {t.services.eyebrow}
-          </span>
-          <h2 className="mt-3 text-3xl font-semibold tracking-tight text-navy-900 sm:text-4xl">
-            {t.services.title}
-          </h2>
-          <p className="mt-4 text-base leading-relaxed text-navy-500">
-            {t.services.subtitle}
-          </p>
-        </div>
+        <SectionHeading
+          id="services-title"
+          index="01"
+          eyebrow={t.services.eyebrow}
+          title={t.services.title}
+          subtitle={t.services.subtitle}
+        />
 
-        <div className="mt-16 grid gap-6 sm:grid-cols-2">
+        <ul className="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-6">
           {t.services.items.map((service, index) => {
             const Icon = ICONS[index];
+            const featured = index === 0;
             return (
-              <motion.div
+              <li
                 key={service.title}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.5, delay: (index % 2) * 0.1, ease: [0.22, 1, 0.36, 1] }}
-                whileHover={{ y: -6 }}
-                className="group flex cursor-default gap-5 rounded-2xl border border-navy-100 bg-paper p-8 shadow-card transition-shadow duration-300 hover:border-accent/30 hover:shadow-card-hover"
+                data-reveal
+                style={{ "--reveal-delay": `${(index % 2) * 90}ms` }}
+                className={`group relative flex flex-col overflow-hidden rounded-3xl border p-7 transition-[box-shadow,border-color,transform] duration-300 hover:-translate-y-1 sm:p-9 ${SPANS[index]} ${
+                  featured
+                    ? "on-dark border-navy-800 bg-navy-900 text-white shadow-card hover:shadow-card-hover"
+                    : "border-navy-100 bg-white shadow-card hover:border-accent/30 hover:shadow-card-hover"
+                }`}
               >
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-navy-900 text-accent-light transition-colors duration-300 group-hover:bg-accent group-hover:text-white">
-                  <Icon size={22} />
+                {featured && (
+                  <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-0 bg-grid bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_80%_at_100%_0%,black,transparent)]"
+                  />
+                )}
+                <div className="relative flex items-start justify-between">
+                  <span
+                    aria-hidden="true"
+                    className={`flex h-12 w-12 items-center justify-center rounded-2xl transition-colors duration-300 ${
+                      featured
+                        ? "bg-accent text-white"
+                        : "bg-navy-900 text-accent-soft group-hover:bg-accent group-hover:text-white"
+                    }`}
+                  >
+                    <Icon size={22} />
+                  </span>
+                  <span
+                    aria-hidden="true"
+                    className={`font-mono text-xs ${featured ? "text-navy-300" : "text-navy-400"}`}
+                  >
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
                 </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-navy-900">{service.title}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-navy-500">
-                    {service.description}
-                  </p>
-                </div>
-              </motion.div>
+                <h3
+                  className={`relative mt-10 text-xl font-semibold tracking-tight sm:text-2xl ${
+                    featured ? "text-white" : "text-navy-900"
+                  }`}
+                >
+                  {service.title}
+                </h3>
+                <p
+                  className={`relative mt-3 max-w-md text-[0.95rem] leading-relaxed ${
+                    featured ? "text-navy-200" : "text-navy-500"
+                  }`}
+                >
+                  {service.description}
+                </p>
+              </li>
             );
           })}
-        </div>
+        </ul>
 
-        <div className="mt-14 text-center">
-          <p className="font-mono text-xs font-semibold uppercase tracking-wide text-navy-400">
+        <div data-reveal className="mt-14 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+          <p className="font-mono text-xs font-medium uppercase tracking-[0.18em] text-navy-400">
             {t.services.stackTitle}
           </p>
-          <ul className="mt-4 flex flex-wrap justify-center gap-2.5">
+          <ul className="flex flex-wrap justify-center gap-2">
             {t.services.stack.map((tool) => (
               <li
                 key={tool}
-                className="rounded-full border border-navy-100 bg-white px-4 py-1.5 text-sm font-medium text-navy-700 shadow-sm"
+                className="rounded-full border border-navy-100 bg-white px-3.5 py-1.5 text-sm font-medium text-navy-700"
               >
                 {tool}
               </li>
@@ -67,6 +96,6 @@ export default function Services() {
           </ul>
         </div>
       </div>
-    </RevealSection>
+    </section>
   );
 }

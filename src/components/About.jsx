@@ -1,49 +1,48 @@
-import { Globe2 } from "lucide-react";
 import { useLanguage } from "../i18n/LanguageContext.jsx";
-import RevealSection from "./RevealSection.jsx";
+import { LogoMark } from "./Logo.jsx";
+import SectionHeading from "./SectionHeading.jsx";
 
 export default function About() {
   const { t } = useLanguage();
+  const [name, role] = t.about.title.split(" — ");
 
   return (
-    <RevealSection id="about" className="bg-navy-50/60 py-24 sm:py-32">
-      <div className="mx-auto grid max-w-6xl gap-14 px-4 sm:px-6 lg:grid-cols-5 lg:items-center">
-        <div className="lg:col-span-3">
-          <span className="font-mono text-sm font-semibold uppercase tracking-wide text-accent-dark">
-            {t.about.eyebrow}
-          </span>
-          <h2 className="mt-3 text-3xl font-semibold tracking-tight text-navy-900 sm:text-4xl">
-            {t.about.title}
-          </h2>
-          <p className="mt-6 text-base leading-relaxed text-navy-600">
-            {t.about.paragraph1}
-          </p>
-          <p className="mt-4 text-base leading-relaxed text-navy-600">
-            {t.about.paragraph2}
-          </p>
+    <section id="about" aria-labelledby="about-title" className="bg-paper pb-24 pt-4 sm:pb-32">
+      <div className="mx-auto grid max-w-6xl gap-14 px-4 sm:px-6 lg:grid-cols-[1.4fr_1fr] lg:items-center lg:gap-20">
+        <div>
+          <SectionHeading id="about-title" index="05" align="left" eyebrow={t.about.eyebrow} title={t.about.title} />
+          <div data-reveal className="mt-7 space-y-4 text-base leading-relaxed text-navy-600 sm:text-lg">
+            <p>{t.about.paragraph1}</p>
+            <p>{t.about.paragraph2}</p>
+          </div>
         </div>
 
-        <div className="lg:col-span-2">
-          <div className="rounded-2xl border border-navy-100 bg-paper p-8 shadow-card">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-navy-900 text-accent-light">
-              <Globe2 size={22} />
+        <aside data-reveal style={{ "--reveal-delay": "120ms" }} aria-label={name} className="relative">
+          <div className="overflow-hidden rounded-3xl border border-navy-100 bg-white shadow-card">
+            <div className="on-dark relative isolate flex items-center gap-4 bg-navy-900 px-7 py-6">
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0 -z-10 bg-grid bg-[size:32px_32px] [mask-image:linear-gradient(90deg,transparent,black)]"
+              />
+              <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-navy-800 ring-1 ring-white/10">
+                <LogoMark className="h-8 w-8 text-paper" />
+              </span>
+              <div>
+                <p className="font-heading text-lg font-semibold text-white">{name}</p>
+                <p className="text-sm text-navy-300">{role}</p>
+              </div>
             </div>
-            <dl className="mt-6 space-y-5">
+            <dl className="divide-y divide-navy-100 px-7">
               {t.about.highlights.map((item) => (
-                <div
-                  key={item.label}
-                  className="flex items-center justify-between border-b border-navy-100 pb-4 last:border-0 last:pb-0"
-                >
+                <div key={item.label} className="flex items-center justify-between gap-6 py-4">
                   <dt className="text-sm text-navy-500">{item.label}</dt>
-                  <dd className="text-right text-sm font-semibold text-navy-900">
-                    {item.value}
-                  </dd>
+                  <dd className="text-right text-sm font-semibold text-navy-900">{item.value}</dd>
                 </div>
               ))}
             </dl>
           </div>
-        </div>
+        </aside>
       </div>
-    </RevealSection>
+    </section>
   );
 }

@@ -21,7 +21,8 @@ export function LogoMark({ className = "h-7 w-7" }) {
   );
 }
 
-export default function Logo({ dark = false, tagline = false, className = "" }) {
+// `tagline` is an optional, already-translated string shown under the wordmark.
+export default function Logo({ dark = false, tagline = "", className = "" }) {
   return (
     <span className={`group inline-flex items-center gap-2.5 ${className}`}>
       <LogoMark className={`h-7 w-7 shrink-0 ${dark ? "text-paper" : "text-navy-900"}`} />
@@ -39,7 +40,7 @@ export default function Logo({ dark = false, tagline = false, className = "" }) 
               dark ? "text-navy-300" : "text-navy-400"
             }`}
           >
-            Automatisation · Agents IA
+            {tagline}
           </span>
         )}
       </span>

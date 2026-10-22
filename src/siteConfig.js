@@ -7,6 +7,13 @@ export const siteConfig = {
   brandName: "BoncelliAI",
   ownerName: "Frank Laro",
 
+  // Canonical origin, no trailing slash — used for hreflang, Open Graph and the sitemap.
+  siteUrl: "https://www.boncelliai.com",
+
+  // Optional: a Calendly / Cal.com / Google booking link. When set, a
+  // "book a slot" button appears next to the contact form. Leave "" to hide.
+  bookingUrl: "",
+
   email: "franklaro61@gmail.com",
 
   fiverrUrl: "https://www.fiverr.com/s/8xdlpVg",

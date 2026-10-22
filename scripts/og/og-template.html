@@ -1,0 +1,58 @@
+<!doctype html>
+<!-- Open Graph card source, screenshotted at 1200×630:
+     og-template.html?lang=fr  -> public/og/og-fr.jpg
+     og-template.html?lang=en  -> public/og/og-en.jpg -->
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      @font-face { font-family: SG; src: url("../../node_modules/@fontsource-variable/space-grotesk/files/space-grotesk-latin-wght-normal.woff2"); font-weight: 300 700; }
+      @font-face { font-family: DM; src: url("../../node_modules/@fontsource-variable/dm-sans/files/dm-sans-latin-wght-normal.woff2"); font-weight: 100 1000; }
+      @font-face { font-family: Mono; src: url("../../node_modules/@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-500-normal.woff2"); }
+      * { margin: 0; box-sizing: border-box; }
+      html, body { width: 1200px; height: 630px; overflow: hidden; }
+      body {
+        background: #101323; color: #fbfaf7; font-family: DM, sans-serif; position: relative;
+        background-image:
+          radial-gradient(55% 70% at 85% 0%, rgba(91,75,255,.35), transparent 70%),
+          linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
+        background-size: auto, 60px 60px, 60px 60px;
+        padding: 72px 80px;
+      }
+      .brand { display: flex; align-items: center; gap: 18px; }
+      .brand svg { width: 52px; height: 52px; }
+      .word { font-family: SG; font-weight: 700; font-size: 34px; letter-spacing: .02em; text-transform: uppercase; }
+      .word b { color: #8477ff; }
+      .eyebrow { margin-top: 70px; font-family: Mono; font-size: 20px; letter-spacing: .16em; text-transform: uppercase; color: #b4abff; }
+      h1 { margin-top: 22px; font-family: SG; font-weight: 600; font-size: 74px; line-height: 1.02; letter-spacing: -.035em; max-width: 1000px; }
+      h1 span { display: block; }
+      h1 .accent { color: #b4abff; }
+      .foot { position: absolute; left: 80px; right: 80px; bottom: 60px; display: flex; justify-content: space-between; align-items: center; font-size: 22px; color: #c3c4da; }
+      .pill { display: flex; align-items: center; gap: 12px; font-family: Mono; font-size: 18px; letter-spacing: .08em; }
+      .dot { width: 12px; height: 12px; border-radius: 50%; background: #34d399; box-shadow: 0 0 0 6px rgba(52,211,153,.18); }
+    </style>
+  </head>
+  <body>
+    <div class="brand">
+      <svg viewBox="8 12 48 40"><path d="M25 16 L 12 32 L 25 48 M39 16 L 52 32 L 39 48" stroke="#fbfaf7" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="32" cy="32" r="5.5" fill="#5b4bff"/></svg>
+      <span class="word">Boncelli<b>AI</b></span>
+    </div>
+    <p class="eyebrow" id="eyebrow"></p>
+    <h1 id="title"></h1>
+    <div class="foot">
+      <span>www.boncelliai.com</span>
+      <span class="pill"><span class="dot"></span><span id="pill"></span></span>
+    </div>
+    <script>
+      const copy = {
+        fr: { eyebrow: "Automatisation IA · Agents · n8n", title: ["Vous gérez l'essentiel.", "L'IA s'occupe du répétitif."], pill: "FR / EN · SUR MESURE" },
+        en: { eyebrow: "AI Automation · Agents · n8n", title: ["You run the business.", "AI handles the busywork."], pill: "EN / FR · CUSTOM-BUILT" },
+      };
+      const c = copy[new URLSearchParams(location.search).get("lang") === "en" ? "en" : "fr"];
+      document.getElementById("eyebrow").textContent = c.eyebrow;
+      document.getElementById("pill").textContent = c.pill;
+      document.getElementById("title").innerHTML = `<span>${c.title[0]}</span><span class="accent">${c.title[1]}</span>`;
+    </script>
+  </body>
+</html>

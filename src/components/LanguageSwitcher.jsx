@@ -1,43 +1,50 @@
-import { motion } from "framer-motion";
-import { useLanguage } from "../i18n/LanguageContext.jsx";
+import { LANGUAGES, LANGUAGE_PATHS, useLanguage } from "../i18n/LanguageContext.jsx";
 
-// Compact FR/EN toggle. The active language slides under the letters
-// with a spring transition — cheap (transform-only) and respects
-// prefers-reduced-motion automatically via Framer Motion's layout animations.
+const NAMES = { fr: "Français", en: "English" };
+
+// FR/EN switch as real links to each language's URL (crawlable, shareable).
+// The current #section is carried over so visitors stay where they were.
 export default function LanguageSwitcher({ dark = false }) {
-  const { language, setLanguage, t } = useLanguage();
+  const { language, t } = useLanguage();
 
-  const base = dark
-    ? "border-white/20 text-white/70"
-    : "border-navy-200 text-navy-500";
-  const activeText = dark ? "text-navy-900" : "text-white";
+  const keepHash = (e) => {
+    if (window.location.hash) e.currentTarget.href = `${e.currentTarget.pathname}${window.location.hash}`;
+  };
 
   return (
-    <div
-      className={`relative flex items-center rounded-full border p-0.5 text-xs font-semibold ${base}`}
-      role="group"
-      aria-label={t.languageSwitcher.label}
-    >
-      {["fr", "en"].map((lang) => (
-        <button
-          key={lang}
-          type="button"
-          onClick={() => setLanguage(lang)}
-          className="relative z-10 cursor-pointer rounded-full px-2.5 py-1 uppercase tracking-wide transition-colors duration-200"
-          aria-pressed={language === lang}
-        >
-          <span className={language === lang ? activeText : ""}>{lang}</span>
-          {language === lang && (
-            <motion.span
-              layoutId="lang-pill"
-              transition={{ type: "spring", stiffness: 400, damping: 30 }}
-              className={`absolute inset-0 -z-10 rounded-full ${
-                dark ? "bg-white" : "bg-navy-900"
-              }`}
-            />
-          )}
-        </button>
-      ))}
-    </div>
+    <nav aria-label={t.languageSwitcher.label}>
+      <ul
+        className={`flex items-center rounded-full border p-0.5 text-xs font-semibold ${
+          dark ? "border-white/20 text-white/75" : "border-navy-200 text-navy-500"
+        }`}
+      >
+        {LANGUAGES.map((lang) => {
+          const active = lang === language;
+          return (
+            <li key={lang}>
+              <a
+                href={LANGUAGE_PATHS[lang]}
+                hrefLang={lang}
+                lang={lang}
+                onClick={active ? (e) => e.preventDefault() : keepHash}
+                aria-current={active ? "page" : undefined}
+                aria-label={NAMES[lang]}
+                className={`block min-w-[2.5rem] rounded-full px-2.5 py-1.5 text-center uppercase tracking-wide transition-colors duration-200 ${
+                  active
+                    ? dark
+                      ? "bg-white text-navy-900"
+                      : "bg-navy-900 text-white"
+                    : dark
+                      ? "hover:text-white"
+                      : "hover:text-navy-900"
+                }`}
+              >
+                {lang}
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </nav>
   );
 }

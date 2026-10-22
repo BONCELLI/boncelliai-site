@@ -1,48 +1,24 @@
-import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
+import React, { createContext, useContext, useMemo } from "react";
 import { translations } from "./translations.js";
 
 export const LANGUAGES = ["fr", "en"];
-const DEFAULT_LANGUAGE = "fr";
-const STORAGE_KEY = "boncelliai-lang";
+export const DEFAULT_LANGUAGE = "fr";
+
+// Each language lives at its own URL so search engines can index both
+// versions (hreflang) and shared links open in the right language.
+export const LANGUAGE_PATHS = { fr: "/", en: "/en/" };
+
+export function languageFromPath(pathname = "/") {
+  return pathname.startsWith("/en") ? "en" : DEFAULT_LANGUAGE;
+}
 
 const LanguageContext = createContext(null);
 
-function detectInitialLanguage() {
-  if (typeof window === "undefined") return DEFAULT_LANGUAGE;
-
-  let stored = null;
-  try {
-    stored = window.localStorage.getItem(STORAGE_KEY);
-  } catch {
-    // Storage blocked (private mode, strict settings): fall back to browser language.
-  }
-  if (stored && LANGUAGES.includes(stored)) return stored;
-
-  const browserLang = window.navigator.language?.slice(0, 2);
-  return LANGUAGES.includes(browserLang) ? browserLang : DEFAULT_LANGUAGE;
-}
-
-export function LanguageProvider({ children }) {
-  const [language, setLanguage] = useState(detectInitialLanguage);
-
-  useEffect(() => {
-    document.documentElement.lang = language;
-    try {
-      window.localStorage.setItem(STORAGE_KEY, language);
-    } catch {
-      // Non-critical: the choice just won't be remembered.
-    }
-  }, [language]);
-
-  const toggleLanguage = () => {
-    setLanguage((current) => (current === "fr" ? "en" : "fr"));
-  };
-
+export function LanguageProvider({ language = DEFAULT_LANGUAGE, children }) {
   const value = useMemo(
     () => ({
       language,
-      setLanguage,
-      toggleLanguage,
+      otherLanguage: language === "fr" ? "en" : "fr",
       t: translations[language],
     }),
     [language]
@@ -51,7 +27,7 @@ export function LanguageProvider({ children }) {
   return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
 }
 
-// Access { language, setLanguage, toggleLanguage, t } from any component.
+// Access { language, otherLanguage, t } from any component.
 export function useLanguage() {
   const context = useContext(LanguageContext);
   if (!context) {

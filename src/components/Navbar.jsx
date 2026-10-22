@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { useLanguage } from "../i18n/LanguageContext.jsx";
 import LanguageSwitcher from "./LanguageSwitcher.jsx";
@@ -11,8 +10,7 @@ export default function Navbar() {
   const { t } = useLanguage();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const { scrollYProgress } = useScroll();
-  const progress = useSpring(scrollYProgress, { stiffness: 200, damping: 30 });
+  const toggleRef = useRef(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16);
@@ -21,98 +19,112 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const links = SECTION_IDS.map((id) => ({ id, label: t.nav[id] }));
+  // Escape closes the mobile menu and returns focus to its toggle.
+  useEffect(() => {
+    if (!mobileOpen) return undefined;
+    const onKey = (e) => {
+      if (e.key === "Escape") {
+        setMobileOpen(false);
+        toggleRef.current?.focus();
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [mobileOpen]);
 
-  const handleNavClick = (id) => {
-    setMobileOpen(false);
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-  };
+  const solid = scrolled || mobileOpen;
+  const links = SECTION_IDS.map((id) => ({ id, label: t.nav[id] }));
+  const close = () => setMobileOpen(false);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50">
-      <motion.div
+    <header className={`fixed inset-x-0 top-0 z-50 ${solid ? "" : "on-dark"}`}>
+      <div
         aria-hidden="true"
-        style={{ scaleX: progress }}
-        className="absolute inset-x-0 top-0 h-0.5 origin-left bg-gradient-to-r from-accent-light to-accent"
+        className="scroll-progress absolute inset-x-0 top-0 h-0.5 origin-left bg-gradient-to-r from-accent-light to-accent"
       />
-      <div className="mx-auto max-w-6xl px-4 pt-4 sm:px-6">
+      <div className="mx-auto max-w-6xl px-3 pt-3 sm:px-6 sm:pt-4">
         <div
-          className={`flex items-center justify-between rounded-2xl border px-4 py-3 backdrop-blur-md transition-all duration-300 sm:px-6 ${
-            scrolled
-              ? "border-navy-100 bg-paper/90 shadow-card"
-              : "border-white/10 bg-navy-900/40"
+          className={`flex items-center justify-between rounded-2xl border px-4 py-2.5 backdrop-blur-xl transition-[background-color,border-color,box-shadow] duration-300 sm:px-5 ${
+            solid ? "border-navy-100 bg-paper/90 shadow-card" : "border-white/10 bg-navy-900/30"
           }`}
         >
-          <a href="#top" className="-m-1 flex items-center rounded-lg p-1" aria-label="BoncelliAI">
-            <Logo dark={!scrolled} />
+          <a href="#top" className="-m-1 flex items-center rounded-lg p-1" aria-label={t.a11y.home} onClick={close}>
+            <Logo dark={!solid} />
           </a>
 
-          <nav className="hidden items-center gap-8 lg:flex">
-            {links.map((link) => (
-              <button
-                key={link.id}
-                onClick={() => handleNavClick(link.id)}
-                className={`cursor-pointer text-sm font-medium transition-colors duration-200 hover:text-accent ${
-                  scrolled ? "text-navy-700" : "text-white/85"
-                }`}
-              >
-                {link.label}
-              </button>
-            ))}
-          </nav>
-
-          <div className="hidden items-center gap-4 lg:flex">
-            <LanguageSwitcher dark={!scrolled} />
-            <button
-              onClick={() => handleNavClick("contact")}
-              className="cursor-pointer rounded-full bg-accent px-4 py-2 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:bg-accent-light hover:shadow-card-hover"
-            >
-              {t.nav.cta}
-            </button>
-          </div>
-
-          <button
-            className={`-m-2 cursor-pointer p-2 lg:hidden ${scrolled ? "text-navy-900" : "text-white"}`}
-            onClick={() => setMobileOpen((open) => !open)}
-            aria-label={mobileOpen ? "Close menu" : "Open menu"}
-            aria-expanded={mobileOpen}
-          >
-            {mobileOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
-
-        <AnimatePresence>
-          {mobileOpen && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.25, ease: "easeOut" }}
-              className="overflow-hidden lg:hidden"
-            >
-              <div className="mt-2 flex flex-col gap-1 rounded-2xl border border-navy-100 bg-paper p-4 shadow-card">
-                {links.map((link) => (
-                  <button
-                    key={link.id}
-                    onClick={() => handleNavClick(link.id)}
-                    className="cursor-pointer rounded-lg px-3 py-2.5 text-left text-sm font-medium text-navy-700 transition-colors duration-200 hover:bg-navy-50 hover:text-accent-dark"
+          <nav aria-label={t.a11y.mainNav} className="hidden lg:block">
+            <ul className="flex items-center gap-1">
+              {links.map((link) => (
+                <li key={link.id}>
+                  <a
+                    href={`#${link.id}`}
+                    className={`rounded-full px-3.5 py-2 text-sm font-medium transition-colors duration-200 ${
+                      solid ? "text-navy-600 hover:bg-navy-50 hover:text-navy-900" : "text-white/80 hover:bg-white/10 hover:text-white"
+                    }`}
                   >
                     {link.label}
-                  </button>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <div className="hidden items-center gap-3 lg:flex">
+            <LanguageSwitcher dark={!solid} />
+            <a href="#contact" className="btn-primary px-5 py-2.5">
+              {t.nav.cta}
+            </a>
+          </div>
+
+          <div className="flex items-center gap-2 lg:hidden">
+            <LanguageSwitcher dark={!solid} />
+            <button
+              ref={toggleRef}
+              type="button"
+              className={`flex h-10 w-10 cursor-pointer items-center justify-center rounded-full ${
+                solid ? "text-navy-900 hover:bg-navy-50" : "text-white hover:bg-white/10"
+              }`}
+              onClick={() => setMobileOpen((open) => !open)}
+              aria-label={mobileOpen ? t.a11y.closeMenu : t.a11y.openMenu}
+              aria-expanded={mobileOpen}
+              aria-controls="mobile-menu"
+            >
+              {mobileOpen ? <X size={22} /> : <Menu size={22} />}
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile menu: grid-rows trick animates height without measuring. */}
+        <div
+          id="mobile-menu"
+          className={`grid transition-[grid-template-rows,opacity] duration-300 ease-out lg:hidden ${
+            mobileOpen ? "grid-rows-[1fr] opacity-100" : "pointer-events-none grid-rows-[0fr] opacity-0"
+          }`}
+        >
+          <div className={`overflow-hidden ${mobileOpen ? "" : "invisible"}`}>
+            <nav
+              aria-label={t.a11y.mainNav}
+              className="mt-2 rounded-2xl border border-navy-100 bg-paper p-3 shadow-card"
+            >
+              <ul className="flex flex-col">
+                {links.map((link) => (
+                  <li key={link.id}>
+                    <a
+                      href={`#${link.id}`}
+                      onClick={close}
+                      className="flex items-center justify-between rounded-xl px-4 py-3.5 text-base font-medium text-navy-800 transition-colors duration-200 hover:bg-navy-50"
+                    >
+                      {link.label}
+                    </a>
+                  </li>
                 ))}
-                <div className="mt-2 flex items-center justify-between px-3">
-                  <LanguageSwitcher />
-                  <button
-                    onClick={() => handleNavClick("contact")}
-                    className="cursor-pointer rounded-full bg-navy-900 px-4 py-2 text-sm font-semibold text-white transition-colors duration-200 hover:bg-accent-dark"
-                  >
-                    {t.nav.cta}
-                  </button>
-                </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+              </ul>
+              <a href="#contact" onClick={close} className="btn-primary mt-2 w-full">
+                {t.nav.cta}
+              </a>
+            </nav>
+          </div>
+        </div>
       </div>
     </header>
   );

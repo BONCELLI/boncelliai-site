@@ -1,12 +1,136 @@
+/* Self-hosted fonts (latin subset only — covers French accents, « », ’, —).
+   No third-party request, no render-blocking stylesheet. */
+@font-face {
+  font-family: "Space Grotesk Variable";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 300 700;
+  src: url("@fontsource-variable/space-grotesk/files/space-grotesk-latin-wght-normal.woff2") format("woff2-variations");
+}
+@font-face {
+  font-family: "DM Sans Variable";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 1000;
+  src: url("@fontsource-variable/dm-sans/files/dm-sans-latin-wght-normal.woff2") format("woff2-variations");
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url("@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 500;
+  src: url("@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-500-normal.woff2") format("woff2");
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* ROI calculator sliders: filled track up to the thumb (--fill set inline). */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-paper font-body text-navy-900 antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-heading;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Anchored sections clear the floating header. */
+  section[id] {
+    scroll-margin-top: 5.5rem;
+  }
+
+  ::selection {
+    background: rgba(91, 75, 255, 0.25);
+  }
+
+  /* Visible focus ring for keyboard navigation (accessibility). */
+  :focus-visible {
+    @apply rounded-sm outline-none ring-2 ring-accent ring-offset-2 ring-offset-paper;
+  }
+  .on-dark :focus-visible {
+    @apply ring-accent-soft ring-offset-navy-900;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
 @layer components {
+  /* Scroll reveal: hidden only once JS is confirmed (html.js), so content is
+     always readable without JS. App.jsx toggles .is-visible via IntersectionObserver. */
+  .js [data-reveal] {
+    opacity: 0;
+    transform: translateY(28px);
+    transition:
+      opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms),
+      transform 0.8s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms);
+  }
+  .js [data-reveal].is-visible {
+    opacity: 1;
+    transform: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .js [data-reveal] {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* Reading-progress hairline driven by the scroll position (no JS). */
+  .scroll-progress {
+    transform: scaleX(0);
+  }
+  @supports (animation-timeline: scroll()) {
+    .scroll-progress {
+      animation: grow-x linear both;
+      animation-timeline: scroll(root);
+    }
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-3 font-mono text-xs font-medium uppercase tracking-[0.18em];
+  }
+
+  .btn-primary {
+    @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-full bg-accent px-7 py-3.5 text-sm font-semibold text-white shadow-[0_12px_32px_-12px_rgba(91,75,255,0.9)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-accent-dark active:translate-y-0 active:scale-[0.98];
+  }
+  .btn-ghost-dark {
+    @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-full border border-white/20 px-7 py-3.5 text-sm font-semibold text-white transition-colors duration-200 hover:border-white/50 hover:bg-white/[0.06];
+  }
+
+  /* ROI calculator sliders: filled track up to the thumb (--fill set inline). */
   .roi-range {
     @apply h-2 appearance-none rounded-full bg-transparent;
-    background: linear-gradient(90deg, #8477ff 0%, #5b4bff var(--fill), rgba(255,255,255,0.12) var(--fill));
+    background: linear-gradient(90deg, #8477ff 0%, #5b4bff var(--fill), rgba(255, 255, 255, 0.12) var(--fill));
   }
   .roi-range::-webkit-slider-thumb {
     @apply h-6 w-6 appearance-none rounded-full border-4 border-accent bg-white shadow-lg transition-transform duration-150;
@@ -17,34 +141,10 @@
   .roi-range::-moz-range-thumb {
     @apply h-5 w-5 rounded-full border-4 border-accent bg-white shadow-lg;
   }
-  .roi-range:focus-visible {
-    @apply ring-offset-navy-900;
-  }
 }
 
-@layer base {
-  html {
-    scroll-behavior: smooth;
-  }
-
-  /* Respect users who prefer less motion: kill smooth scroll + let
-     Framer Motion components read this via useReducedMotion(). */
-  @media (prefers-reduced-motion: reduce) {
-    html {
-      scroll-behavior: auto;
-    }
-  }
-
-  body {
-    @apply bg-paper text-navy-900 font-body antialiased;
-  }
-
-  h1, h2, h3, h4 {
-    @apply font-heading;
-  }
-
-  /* Visible focus ring for keyboard navigation (accessibility). */
-  :focus-visible {
-    @apply outline-none ring-2 ring-accent ring-offset-2 ring-offset-paper rounded-sm;
+@keyframes grow-x {
+  to {
+    transform: scaleX(1);
   }
 }

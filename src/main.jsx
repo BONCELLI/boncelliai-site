@@ -1,13 +1,24 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
+import { createRoot, hydrateRoot } from "react-dom/client";
 import App from "./App.jsx";
-import { LanguageProvider } from "./i18n/LanguageContext.jsx";
+import { LanguageProvider, languageFromPath } from "./i18n/LanguageContext.jsx";
 import "./index.css";
 
-ReactDOM.createRoot(document.getElementById("root")).render(
+const language = languageFromPath(window.location.pathname);
+const container = document.getElementById("root");
+const app = (
   <React.StrictMode>
-    <LanguageProvider>
+    <LanguageProvider language={language}>
       <App />
     </LanguageProvider>
   </React.StrictMode>
 );
+
+// Production pages are prerendered (scripts/prerender.mjs): hydrate them.
+// The dev server serves an empty shell, so render from scratch there.
+if (container.firstElementChild) {
+  hydrateRoot(container, app);
+} else {
+  document.documentElement.lang = language;
+  createRoot(container).render(app);
+}

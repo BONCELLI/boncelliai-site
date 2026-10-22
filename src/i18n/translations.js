@@ -232,6 +232,72 @@ export const translations = {
     languageSwitcher: {
       label: "Langue",
     },
+    // Shown on the *English* page to French-speaking visitors.
+    langSuggest: {
+      text: "Ce site est aussi disponible en français.",
+      action: "Voir en français",
+      dismiss: "Fermer",
+    },
+    seo: {
+      title: "BoncelliAI — Agents IA et automatisation sur mesure (n8n, Claude, OpenAI)",
+      description:
+        "Agents IA et workflows n8n sur mesure qui répondent à vos clients, traitent vos documents et relient vos outils. Prix fixe, service bilingue FR/EN, sans verrouillage.",
+      ogImageAlt: "BoncelliAI — Vous gérez l'essentiel. L'IA s'occupe du répétitif.",
+      locale: "fr_CA",
+    },
+    a11y: {
+      skip: "Aller au contenu principal",
+      openMenu: "Ouvrir le menu",
+      closeMenu: "Fermer le menu",
+      mainNav: "Navigation principale",
+      home: "BoncelliAI — retour en haut",
+    },
+    trust: {
+      label: "Je connecte les outils que vous utilisez déjà",
+      tools: ["n8n", "Claude", "OpenAI", "Make", "Zapier", "Google Workspace", "Slack", "Notion", "Airtable", "CRM", "Webhooks", "API REST"],
+    },
+    commitments: {
+      eyebrow: "Engagements",
+      title: "Ce sur quoi vous pouvez compter",
+      subtitle: "Des garanties concrètes, posées noir sur blanc avant le premier jour de travail.",
+      items: [
+        {
+          title: "Prix fixe, périmètre clair",
+          description: "Un devis ferme après l'appel de cadrage. Pas de facturation surprise, pas de dépassement.",
+        },
+        {
+          title: "Vos accès restent les vôtres",
+          description:
+            "Workflows sur votre compte ou une instance n8n auto-hébergée. Aucun verrouillage, aucune dépendance.",
+        },
+        {
+          title: "Documentation bilingue",
+          description: "Chaque système est livré avec une documentation claire, en français ou en anglais.",
+        },
+        {
+          title: "Alertes et suivi inclus",
+          description: "Alertes d'erreur intégrées et ajustements après lancement pour que tout reste fiable.",
+        },
+      ],
+    },
+    cta: {
+      title: "Prêt à reprendre des heures chaque semaine?",
+      text: "Commencez par un appel de cadrage : on repère ensemble ce qui vaut la peine d'être automatisé.",
+      button: "Réserver mon appel de cadrage",
+      note: "Gratuit · sans engagement · en français ou en anglais",
+    },
+    contactExtra: {
+      company: "Entreprise",
+      optional: "facultatif",
+      companyPlaceholder: "Nom de votre entreprise",
+      topicLabel: "Ce que vous voulez automatiser",
+      topics: ["Support client", "Prospects", "Documents et factures", "Intégrations", "Autre"],
+      privacy: "Vos informations restent confidentielles et servent uniquement à vous répondre.",
+      replyNote: "Réponse rapide, en français ou en anglais.",
+      directTitle: "Ou écrivez-moi directement",
+      bookCta: "Réserver un créneau en ligne",
+      required: "Champ obligatoire",
+    },
   },
 
   en: {
@@ -458,6 +524,71 @@ export const translations = {
     },
     languageSwitcher: {
       label: "Language",
+    },
+    // Shown on the *French* page to English-speaking visitors.
+    langSuggest: {
+      text: "This site is also available in English.",
+      action: "View in English",
+      dismiss: "Dismiss",
+    },
+    seo: {
+      title: "BoncelliAI — Custom AI Agents & Automation (n8n, Claude, OpenAI)",
+      description:
+        "Custom AI agents and n8n workflows that answer your customers, process your documents and connect your tools. Fixed pricing, bilingual EN/FR service, no lock-in.",
+      ogImageAlt: "BoncelliAI — You run the business. AI handles the busywork.",
+      locale: "en_CA",
+    },
+    a11y: {
+      skip: "Skip to main content",
+      openMenu: "Open menu",
+      closeMenu: "Close menu",
+      mainNav: "Main navigation",
+      home: "BoncelliAI — back to top",
+    },
+    trust: {
+      label: "I connect the tools you already use",
+      tools: ["n8n", "Claude", "OpenAI", "Make", "Zapier", "Google Workspace", "Slack", "Notion", "Airtable", "CRM", "Webhooks", "REST APIs"],
+    },
+    commitments: {
+      eyebrow: "Commitments",
+      title: "What you can count on",
+      subtitle: "Concrete guarantees, put in writing before the first day of work.",
+      items: [
+        {
+          title: "Fixed price, clear scope",
+          description: "A firm quote after the scoping call. No surprise invoices, no overruns.",
+        },
+        {
+          title: "Your credentials stay yours",
+          description: "Workflows on your own account or a self-hosted n8n instance. No lock-in, no dependency.",
+        },
+        {
+          title: "Bilingual documentation",
+          description: "Every system ships with clear documentation, in English or French.",
+        },
+        {
+          title: "Alerts and follow-up included",
+          description: "Built-in error alerts and post-launch adjustments so everything stays reliable.",
+        },
+      ],
+    },
+    cta: {
+      title: "Ready to win back hours every week?",
+      text: "Start with a scoping call: together we'll pinpoint what's actually worth automating.",
+      button: "Book my scoping call",
+      note: "Free · no commitment · in English or French",
+    },
+    contactExtra: {
+      company: "Company",
+      optional: "optional",
+      companyPlaceholder: "Your company name",
+      topicLabel: "What you want to automate",
+      topics: ["Customer support", "Leads", "Documents & invoices", "Integrations", "Other"],
+      privacy: "Your information stays confidential and is only used to reply to you.",
+      replyNote: "Fast reply, in English or French.",
+      directTitle: "Or email me directly",
+      bookCta: "Book a slot online",
+      required: "Required field",
     },
   },
 };
