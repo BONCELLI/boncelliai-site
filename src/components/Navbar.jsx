@@ -4,7 +4,7 @@ import { useLanguage } from "../i18n/LanguageContext.jsx";
 import LanguageSwitcher from "./LanguageSwitcher.jsx";
 import Logo from "./Logo.jsx";
 
-const SECTION_IDS = ["services", "roi", "process", "about", "faq"];
+const SECTION_IDS = ["services", "roi", "process", "about", "faq", "contact"];
 
 export default function Navbar() {
   const { t } = useLanguage();
@@ -53,12 +53,12 @@ export default function Navbar() {
           </a>
 
           <nav aria-label={t.a11y.mainNav} className="hidden lg:block">
-            <ul className="flex items-center gap-1">
+            <ul className="flex items-center gap-0.5 xl:gap-1">
               {links.map((link) => (
                 <li key={link.id}>
                   <a
                     href={`#${link.id}`}
-                    className={`rounded-full px-3.5 py-2 text-sm font-medium transition-colors duration-200 ${
+                    className={`whitespace-nowrap rounded-full px-2.5 py-2 text-sm xl:px-3.5 font-medium transition-colors duration-200 ${
                       solid ? "text-navy-600 hover:bg-navy-50 hover:text-navy-900" : "text-white/80 hover:bg-white/10 hover:text-white"
                     }`}
                   >
@@ -69,9 +69,9 @@ export default function Navbar() {
             </ul>
           </nav>
 
-          <div className="hidden items-center gap-3 lg:flex">
+          <div className="hidden items-center gap-2 lg:flex xl:gap-3">
             <LanguageSwitcher dark={!solid} />
-            <a href="#contact" className="btn-primary px-5 py-2.5">
+            <a href="#contact" className="btn-primary whitespace-nowrap px-4 py-2.5 xl:px-5">
               {t.nav.cta}
             </a>
           </div>
