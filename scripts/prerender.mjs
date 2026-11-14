@@ -1,5 +1,6 @@
 // Turns the client build into one static, fully rendered HTML page per
-// language (dist/index.html = FR, dist/en/index.html = EN), then writes
+// page and language (dist/index.html = FR home, dist/en/index.html = EN home,
+// dist/offres/index.html, dist/en/packages/index.html, ...), then writes
 // sitemap.xml and robots.txt. Run after `vite build` + `vite build --ssr`.
 import { mkdir, readdir, readFile, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
@@ -9,7 +10,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dist = path.join(root, "dist");
 const ssrDir = path.join(root, "dist-ssr");
 
-const { render, head, pageUrl } = await import(pathToFileURL(path.join(ssrDir, "entry-server.js")).href);
+const { render, head, pageUrl, PAGE_KEYS, pagePath } = await import(pathToFileURL(path.join(ssrDir, "entry-server.js")).href);
 let template = await readFile(path.join(dist, "index.html"), "utf8");
 
 // Inline the (small, ~8 kB gzip) stylesheet: removes the only render-blocking
@@ -33,10 +34,10 @@ const preloadApp = assets
   .map((file) => `<link rel="modulepreload" href="/assets/${file}" />`)
   .join("\n    ");
 
-const pages = [
-  { lang: "fr", out: path.join(dist, "index.html") },
-  { lang: "en", out: path.join(dist, "en", "index.html") },
-];
+const LANGS = ["fr", "en"];
+const pages = PAGE_KEYS.flatMap((page) =>
+  LANGS.map((lang) => ({ lang, page, out: path.join(dist, ...pagePath(lang, page).split("/").filter(Boolean), "index.html") }))
+);
 
 // Fail the build loudly rather than ship a half-prerendered page.
 const require = (ok, what) => {
@@ -49,30 +50,30 @@ for (const marker of ["<!--app-lang-->", "<!--app-head-->", "<!--app-html-->"]) 
   require(template.includes(marker), marker);
 }
 
-for (const { lang, out } of pages) {
+for (const { lang, page, out } of pages) {
   // Function replacers: rendered text may contain "$" sequences (e.g. "$1,248.50").
   const html = template
     .replace("<!--app-lang-->", () => (lang === "fr" ? "fr-CA" : "en-CA"))
-    .replace("<!--app-head-->", () => `${head(lang)}\n    ${preloadFonts}\n    ${preloadApp}`)
-    .replace("<!--app-html-->", () => render(lang));
+    .replace("<!--app-head-->", () => `${head(lang, page)}\n    ${preloadFonts}\n    ${preloadApp}`)
+    .replace("<!--app-html-->", () => render(lang, page));
   await mkdir(path.dirname(out), { recursive: true });
   await writeFile(out, html);
-  console.log(`prerendered ${lang} -> ${path.relative(root, out)}`);
+  console.log(`prerendered ${lang}/${page} -> ${path.relative(root, out)}`);
 }
 
 const today = new Date().toISOString().slice(0, 10);
-const alternates = pages
-  .map(({ lang }) => `    <xhtml:link rel="alternate" hreflang="${lang}" href="${pageUrl(lang)}" />`)
-  .concat(`    <xhtml:link rel="alternate" hreflang="x-default" href="${pageUrl("fr")}" />`)
-  .join("\n");
+const alternates = (page) =>
+  LANGS.map((lang) => `    <xhtml:link rel="alternate" hreflang="${lang}" href="${pageUrl(lang, page)}" />`)
+    .concat(`    <xhtml:link rel="alternate" hreflang="x-default" href="${pageUrl("fr", page)}" />`)
+    .join("\n");
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
 ${pages
   .map(
-    ({ lang }) => `  <url>
-    <loc>${pageUrl(lang)}</loc>
+    ({ lang, page }) => `  <url>
+    <loc>${pageUrl(lang, page)}</loc>
     <lastmod>${today}</lastmod>
-${alternates}
+${alternates(page)}
   </url>`
   )
   .join("\n")}

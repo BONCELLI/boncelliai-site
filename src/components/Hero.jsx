@@ -9,7 +9,7 @@ const RISE = "motion-safe:animate-rise-in";
 const rise = (ms) => ({ animationDelay: `${ms}ms` });
 
 export default function Hero() {
-  const { t } = useLanguage();
+  const { t, path } = useLanguage();
   const titleLines = t.hero.title.split("\n");
 
   return (
@@ -57,11 +57,11 @@ export default function Hero() {
           <p className="mt-7 max-w-xl text-base leading-relaxed text-navy-200 sm:text-lg">{t.hero.subtitle}</p>
 
           <div style={rise(220)} className={`${RISE} mt-9 flex flex-col gap-3 sm:flex-row`}>
-            <a href="#contact" className="btn-primary group">
+            <a href={path("contact")} className="btn-primary group">
               {t.hero.ctaPrimary}
               <ArrowRight size={16} aria-hidden="true" className="transition-transform duration-200 group-hover:translate-x-1" />
             </a>
-            <a href="#roi" className="btn-ghost-dark">
+            <a href={path("tools", "#roi")} className="btn-ghost-dark">
               {t.hero.ctaSecondary}
             </a>
           </div>

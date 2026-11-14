@@ -460,7 +460,7 @@ export const en = {
     openMenu: "Open menu",
     closeMenu: "Close menu",
     mainNav: "Main navigation",
-    home: "BoncelliAI — back to top",
+    home: "BoncelliAI — home",
     backToTop: "Back to top",
   },
 };

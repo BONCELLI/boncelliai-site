@@ -4,7 +4,7 @@ import { LogoMark } from "./Logo.jsx";
 
 // Mid-page conversion moment, after the commitments have built trust.
 export default function CtaBand() {
-  const { t } = useLanguage();
+  const { t, path } = useLanguage();
 
   return (
     <section aria-labelledby="cta-title" className="bg-paper py-20 sm:py-24">
@@ -23,7 +23,7 @@ export default function CtaBand() {
             {t.cta.title}
           </h2>
           <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-navy-200 sm:text-lg">{t.cta.text}</p>
-          <a href="#contact" className="btn-primary group mt-9">
+          <a href={path("contact")} className="btn-primary group mt-9">
             {t.cta.button}
             <ArrowRight size={16} aria-hidden="true" className="transition-transform duration-200 group-hover:translate-x-1" />
           </a>

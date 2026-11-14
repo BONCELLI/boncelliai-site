@@ -8,7 +8,7 @@ const ICONS = [Bot, Workflow, DatabaseZap, Plug];
 // Bento layout on desktop: wide / narrow, then narrow / wide.
 const SPANS = ["lg:col-span-4", "lg:col-span-2", "lg:col-span-2", "lg:col-span-4"];
 
-export default function Services() {
+export default function Services({ index }) {
   const { t } = useLanguage();
 
   return (
@@ -16,7 +16,7 @@ export default function Services() {
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <SectionHeading
           id="services-title"
-          index="01"
+          index={index}
           eyebrow={t.services.eyebrow}
           title={t.services.title}
           subtitle={t.services.subtitle}

@@ -11,15 +11,15 @@ const CATEGORY_KEYS = ["support", "sales", "admin", "ops"];
 
 // Filterable gallery of real-world automation recipes. Cards animate in, out
 // and across the grid when the filter changes (Framer Motion layout animations).
-export default function UseCases() {
-  const { t } = useLanguage();
+export default function UseCases({ index }) {
+  const { t, path } = useLanguage();
   const [filter, setFilter] = useState("all");
   const items = t.cases.items.filter((item) => filter === "all" || item.category === filter);
 
   return (
     <section id="cases" aria-labelledby="cases-title" className="border-y border-navy-100 bg-bone py-24 sm:py-32">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <SectionHeading id="cases-title" index="02" eyebrow={t.cases.eyebrow} title={t.cases.title} subtitle={t.cases.subtitle} />
+        <SectionHeading id="cases-title" index={index} eyebrow={t.cases.eyebrow} title={t.cases.title} subtitle={t.cases.subtitle} />
 
         <div data-reveal role="group" aria-label={t.cases.filterLabel} className="mt-12 flex flex-wrap justify-center gap-2">
           {["all", ...CATEGORY_KEYS].map((key) => {
@@ -122,7 +122,7 @@ export default function UseCases() {
 
         <div data-reveal className="mt-12 text-center">
           <a
-            href="#diagnostic"
+            href={path("tools", "#diagnostic")}
             className="group inline-flex items-center gap-2 text-sm font-semibold text-accent-dark transition-colors hover:text-navy-900"
           >
             {t.diagnostic.title}

@@ -1,7 +1,9 @@
 // Shared section header: numbered mono eyebrow, display title, optional lead.
-// `dark` switches colors for navy sections; `align` = "center" | "left".
-export default function SectionHeading({ index, eyebrow, title, subtitle, dark = false, align = "center", id }) {
+// `dark` switches colors for navy sections; `align` = "center" | "left";
+// `level` = 1 when the section opens its own page (renders an h1).
+export default function SectionHeading({ index, eyebrow, title, subtitle, dark = false, align = "center", id, level = 2 }) {
   const centered = align === "center";
+  const Heading = level === 1 ? "h1" : "h2";
   return (
     <div data-reveal className={centered ? "mx-auto max-w-2xl text-center" : "max-w-2xl"}>
       <p className={`eyebrow ${dark ? "text-accent-soft" : "text-accent-dark"} ${centered ? "justify-center" : ""}`}>
@@ -13,9 +15,9 @@ export default function SectionHeading({ index, eyebrow, title, subtitle, dark =
         )}
         <span>{eyebrow}</span>
       </p>
-      <h2 id={id} className={`mt-5 text-section font-semibold ${dark ? "text-white" : "text-navy-900"}`}>
+      <Heading id={id} className={`mt-5 text-section font-semibold ${dark ? "text-white" : "text-navy-900"}`}>
         {title}
-      </h2>
+      </Heading>
       {subtitle && (
         <p className={`mt-5 text-base leading-relaxed sm:text-lg ${dark ? "text-navy-200" : "text-navy-500"}`}>
           {subtitle}

@@ -5,7 +5,7 @@ import SectionHeading from "./SectionHeading.jsx";
 // Same order as `commitments.items` in translations.js.
 const ICONS = [BadgeCheck, KeyRound, BookOpenText, BellRing];
 
-export default function Commitments() {
+export default function Commitments({ index }) {
   const { t } = useLanguage();
 
   return (
@@ -14,7 +14,7 @@ export default function Commitments() {
         <div className="lg:sticky lg:top-32 lg:self-start">
           <SectionHeading
             id="commitments-title"
-            index="07"
+            index={index}
             align="left"
             eyebrow={t.commitments.eyebrow}
             title={t.commitments.title}

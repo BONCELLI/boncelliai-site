@@ -14,6 +14,8 @@ import CtaBand from "./components/CtaBand.jsx";
 import About from "./components/About.jsx";
 import Faq from "./components/Faq.jsx";
 import Contact from "./components/Contact.jsx";
+import PageHero from "./components/PageHero.jsx";
+import HomeExplore from "./components/HomeExplore.jsx";
 import Footer from "./components/Footer.jsx";
 import MobileCta from "./components/MobileCta.jsx";
 import BackToTop from "./components/BackToTop.jsx";
@@ -71,8 +73,55 @@ function useSpotlight() {
   }, []);
 }
 
+// What each page shows. Section numbers restart on every page.
+const PAGES = {
+  home: () => (
+    <>
+      <Hero />
+      <TrustStrip />
+      <HomeExplore />
+      <CtaBand />
+    </>
+  ),
+  solutions: () => (
+    <>
+      <PageHero />
+      <Services index="01" />
+      <UseCases index="02" />
+      <CtaBand />
+    </>
+  ),
+  tools: () => (
+    <>
+      <PageHero />
+      <RoiCalculator index="01" />
+      <Diagnostic index="02" />
+      <CtaBand />
+    </>
+  ),
+  offers: () => (
+    <>
+      <PageHero />
+      <Offers index="01" />
+      <Commitments index="02" />
+      <Faq index="03" />
+      <CtaBand />
+    </>
+  ),
+  about: () => (
+    <>
+      <PageHero />
+      <About index="01" />
+      <Process index="02" />
+      <CtaBand />
+    </>
+  ),
+  contact: () => <Contact />,
+};
+
 export default function App() {
-  const { t } = useLanguage();
+  const { t, page } = useLanguage();
+  const Page = PAGES[page] || PAGES.home;
   useScrollReveal();
   useSpotlight();
 
@@ -86,19 +135,7 @@ export default function App() {
       </a>
       <Navbar />
       <main id="main" tabIndex={-1} className="outline-none">
-        <Hero />
-        <TrustStrip />
-        <Services />
-        <UseCases />
-        <RoiCalculator />
-        <Diagnostic />
-        <Process />
-        <Offers />
-        <Commitments />
-        <CtaBand />
-        <About />
-        <Faq />
-        <Contact />
+        <Page />
       </main>
       <Footer />
       <MobileCta />

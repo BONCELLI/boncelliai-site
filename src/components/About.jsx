@@ -2,16 +2,16 @@ import { useLanguage } from "../i18n/LanguageContext.jsx";
 import { LogoMark } from "./Logo.jsx";
 import SectionHeading from "./SectionHeading.jsx";
 
-export default function About() {
+export default function About({ index }) {
   const { t } = useLanguage();
   const [name, rawRole = ""] = t.about.title.split(" — ");
   const role = rawRole.charAt(0).toUpperCase() + rawRole.slice(1);
 
   return (
-    <section id="about" aria-labelledby="about-title" className="bg-paper pb-24 pt-4 sm:pb-32">
+    <section id="about" aria-labelledby="about-title" className="bg-paper py-24 sm:py-32">
       <div className="mx-auto grid max-w-6xl gap-14 px-4 sm:px-6 lg:grid-cols-[1.4fr_1fr] lg:items-center lg:gap-20">
         <div>
-          <SectionHeading id="about-title" index="08" align="left" eyebrow={t.about.eyebrow} title={t.about.title} />
+          <SectionHeading id="about-title" index={index} align="left" eyebrow={t.about.eyebrow} title={t.about.title} />
           <div data-reveal className="mt-7 space-y-4 text-base leading-relaxed text-navy-600 sm:text-lg">
             <p>{t.about.paragraph1}</p>
             <p>{t.about.paragraph2}</p>

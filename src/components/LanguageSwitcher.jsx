@@ -1,11 +1,12 @@
-import { LANGUAGES, LANGUAGE_PATHS, useLanguage } from "../i18n/LanguageContext.jsx";
+import { LANGUAGES, useLanguage } from "../i18n/LanguageContext.jsx";
+import { pagePath } from "../lib/routes.js";
 
 const NAMES = { fr: "Français", en: "English" };
 
 // FR/EN switch as real links to each language's URL (crawlable, shareable).
-// The current #section is carried over so visitors stay where they were.
+// Links to the same page in the other language; the #section is carried over.
 export default function LanguageSwitcher({ dark = false }) {
-  const { language, t } = useLanguage();
+  const { language, t, page } = useLanguage();
 
   const keepHash = (e) => {
     if (window.location.hash) e.currentTarget.href = `${e.currentTarget.pathname}${window.location.hash}`;
@@ -23,7 +24,7 @@ export default function LanguageSwitcher({ dark = false }) {
           return (
             <li key={lang}>
               <a
-                href={LANGUAGE_PATHS[lang]}
+                href={pagePath(lang, page)}
                 hrefLang={lang}
                 lang={lang}
                 onClick={active ? (e) => e.preventDefault() : keepHash}

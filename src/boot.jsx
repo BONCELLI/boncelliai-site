@@ -1,13 +1,14 @@
 import React from "react";
 import { createRoot, hydrateRoot } from "react-dom/client";
 import App from "./App.jsx";
-import { LanguageProvider, languageFromPath } from "./i18n/LanguageContext.jsx";
+import { LanguageProvider } from "./i18n/LanguageContext.jsx";
+import { routeFromPath } from "./lib/routes.js";
 
-const language = languageFromPath(window.location.pathname);
+const { lang: language, page } = routeFromPath(window.location.pathname);
 const container = document.getElementById("root");
 const app = (
   <React.StrictMode>
-    <LanguageProvider language={language}>
+    <LanguageProvider language={language} page={page}>
       <App />
     </LanguageProvider>
   </React.StrictMode>

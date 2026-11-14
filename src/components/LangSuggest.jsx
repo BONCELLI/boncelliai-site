@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Languages, X } from "lucide-react";
-import { LANGUAGE_PATHS, useLanguage } from "../i18n/LanguageContext.jsx";
+import { useLanguage } from "../i18n/LanguageContext.jsx";
+import { pagePath } from "../lib/routes.js";
 import { translations } from "../i18n/translations.js";
 
 const STORAGE_KEY = "boncelliai-lang-suggest-dismissed";
@@ -9,7 +10,7 @@ const STORAGE_KEY = "boncelliai-lang-suggest-dismissed";
 // written in that language. No automatic redirect (bad for SEO and for
 // people who chose this page on purpose).
 export default function LangSuggest() {
-  const { language, otherLanguage } = useLanguage();
+  const { language, otherLanguage, page } = useLanguage();
   const [visible, setVisible] = useState(false);
   const copy = translations[otherLanguage].langSuggest;
 
@@ -50,7 +51,7 @@ export default function LangSuggest() {
         <Languages size={18} aria-hidden="true" className="shrink-0 text-accent" />
         <p className="flex-1 text-sm text-navy-700">{copy.text}</p>
         <a
-          href={LANGUAGE_PATHS[otherLanguage]}
+          href={pagePath(otherLanguage, page)}
           hrefLang={otherLanguage}
           className="shrink-0 rounded-full bg-navy-900 px-3.5 py-2 text-xs font-semibold text-white transition-colors hover:bg-accent-dark"
         >

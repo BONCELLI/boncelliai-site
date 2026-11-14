@@ -12,14 +12,16 @@ import {
 } from "lucide-react";
 import { useLanguage } from "../i18n/LanguageContext.jsx";
 import { siteConfig } from "../siteConfig.js";
-import { PREFILL_EVENT } from "../lib/prefill.js";
+import { PREFILL_EVENT, takePendingPrefill } from "../lib/prefill.js";
 import SectionHeading from "./SectionHeading.jsx";
 
 const STATUS = { IDLE: "idle", SUBMITTING: "submitting", SUCCESS: "success", MAILTO: "mailto", ERROR: "error" };
 const EMPTY_FORM = { name: "", email: "", company: "", topic: "", message: "", _gotcha: "" };
 
-export default function Contact() {
-  const { t, language } = useLanguage();
+export default function Contact({ index }) {
+  const { t, language, page } = useLanguage();
+  // On the contact page this section is the page itself: h1 + room for the navbar.
+  const standalone = page === "contact";
   const x = t.contactExtra;
   const [form, setForm] = useState(EMPTY_FORM);
   const [status, setStatus] = useState(STATUS.IDLE);
@@ -27,8 +29,8 @@ export default function Contact() {
 
   // The diagnostic quiz and the package cards can prefill topic + message.
   useEffect(() => {
-    const onPrefill = (e) => {
-      const { topicIndex, message } = e.detail || {};
+    const apply = (detail) => {
+      const { topicIndex, message } = detail || {};
       setForm((prev) => ({
         ...prev,
         topic: topicIndex !== undefined && x.topics[topicIndex] ? x.topics[topicIndex] : prev.topic,
@@ -36,6 +38,13 @@ export default function Contact() {
       }));
       setPrefilled(Boolean(message));
       setStatus(STATUS.IDLE);
+    };
+    // Arrived from another page (diagnostic, packages, calculator).
+    const pending = takePendingPrefill();
+    if (pending) apply(pending);
+    const onPrefill = (e) => {
+      takePendingPrefill();
+      apply(e.detail);
     };
     window.addEventListener(PREFILL_EVENT, onPrefill);
     return () => window.removeEventListener(PREFILL_EVENT, onPrefill);
@@ -82,14 +91,15 @@ export default function Contact() {
   const submitting = status === STATUS.SUBMITTING;
 
   return (
-    <section id="contact" aria-labelledby="contact-title" className="on-dark relative isolate overflow-hidden bg-navy-900 py-24 sm:py-32">
+    <section id="contact" aria-labelledby="contact-title" className={`on-dark relative isolate overflow-hidden bg-navy-900 ${standalone ? "pb-24 pt-32 sm:pb-32 sm:pt-40" : "py-24 sm:py-32"}`}>
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-hero-glow" />
       <div aria-hidden="true" className="noise pointer-events-none absolute inset-0 -z-10" />
       <div className="mx-auto grid max-w-6xl gap-12 px-4 sm:px-6 lg:grid-cols-[1fr_1.35fr] lg:gap-16">
         <div>
           <SectionHeading
             id="contact-title"
-            index="10"
+            index={index}
+            level={standalone ? 1 : 2}
             dark
             align="left"
             eyebrow={t.contact.eyebrow}

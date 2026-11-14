@@ -23,8 +23,8 @@ const slide = {
 
 // Three-question quiz that suggests a first automation and pre-fills the
 // contact form with the answers. Pure client state; nothing is sent anywhere.
-export default function Diagnostic() {
-  const { t, language } = useLanguage();
+export default function Diagnostic({ index }) {
+  const { t, language, path } = useLanguage();
   const d = t.diagnostic;
   const [answers, setAnswers] = useState([]);
   const step = answers.length;
@@ -52,7 +52,7 @@ export default function Diagnostic() {
   return (
     <section id="diagnostic" aria-labelledby="diagnostic-title" className="bg-paper py-24 sm:py-32">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <SectionHeading id="diagnostic-title" index="04" eyebrow={d.eyebrow} title={d.title} subtitle={d.subtitle} />
+        <SectionHeading id="diagnostic-title" index={index} eyebrow={d.eyebrow} title={d.title} subtitle={d.subtitle} />
 
         <div
           data-reveal
@@ -181,7 +181,7 @@ export default function Diagnostic() {
                       </dl>
 
                       <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
-                        <a href="#contact" onClick={prefill} className="btn-primary group">
+                        <a href={path("contact")} onClick={prefill} className="btn-primary group">
                           {d.cta}
                           <ArrowRight size={16} aria-hidden="true" className="transition-transform duration-200 group-hover:translate-x-1" />
                         </a>

@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useMemo } from "react";
 import { translations } from "./translations.js";
+import { pagePath } from "../lib/routes.js";
 
 export const LANGUAGES = ["fr", "en"];
 export const DEFAULT_LANGUAGE = "fr";
@@ -14,20 +15,23 @@ export function languageFromPath(pathname = "/") {
 
 const LanguageContext = createContext(null);
 
-export function LanguageProvider({ language = DEFAULT_LANGUAGE, children }) {
+export function LanguageProvider({ language = DEFAULT_LANGUAGE, page = "home", children }) {
   const value = useMemo(
     () => ({
       language,
       otherLanguage: language === "fr" ? "en" : "fr",
       t: translations[language],
+      page,
+      // URL of another page in the current language, e.g. path("contact").
+      path: (key, hash = "") => `${pagePath(language, key)}${hash}`,
     }),
-    [language]
+    [language, page]
   );
 
   return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
 }
 
-// Access { language, otherLanguage, t } from any component.
+// Access { language, otherLanguage, t, page, path } from any component.
 export function useLanguage() {
   const context = useContext(LanguageContext);
   if (!context) {

@@ -5,13 +5,13 @@ import SectionHeading from "./SectionHeading.jsx";
 
 const FEATURED = 1; // index of the highlighted package
 
-export default function Offers() {
-  const { t } = useLanguage();
+export default function Offers({ index }) {
+  const { t, path } = useLanguage();
 
   return (
     <section id="offers" aria-labelledby="offers-title" className="bg-paper py-24 sm:py-32">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <SectionHeading id="offers-title" index="06" eyebrow={t.offers.eyebrow} title={t.offers.title} subtitle={t.offers.subtitle} />
+        <SectionHeading id="offers-title" index={index} eyebrow={t.offers.eyebrow} title={t.offers.title} subtitle={t.offers.subtitle} />
 
         <ul className="mt-16 grid gap-5 lg:grid-cols-3 lg:items-stretch">
           {t.offers.items.map((offer, index) => {
@@ -95,7 +95,7 @@ export default function Offers() {
                 </div>
 
                 <a
-                  href="#contact"
+                  href={path("contact")}
                   onClick={() => requestPrefill({ message: `${offer.name} — ${offer.tagline}` })}
                   className={`group relative mt-9 inline-flex w-full items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm font-semibold transition-all duration-200 hover:-translate-y-0.5 ${
                     featured

@@ -6,8 +6,12 @@ BoncelliAI designs, builds and documents AI agents and workflows that answer cus
 
 ## Pages
 
-- [Français (FR-CA)](https://www.boncelliai.com/): solutions, cas d'usage, calculateur de gains, diagnostic express, méthode, offres, engagements, à propos, FAQ et formulaire de contact
-- [English (EN-CA)](https://www.boncelliai.com/en/): same content in English
+- [Accueil (FR-CA)](https://www.boncelliai.com/) / [Home (EN-CA)](https://www.boncelliai.com/en/): overview and links to every page
+- [Solutions](https://www.boncelliai.com/solutions/) / [EN](https://www.boncelliai.com/en/solutions/): solutions and use cases
+- [Outils gratuits](https://www.boncelliai.com/outils/) / [Free tools](https://www.boncelliai.com/en/tools/): savings calculator and quick diagnostic
+- [Offres](https://www.boncelliai.com/offres/) / [Packages](https://www.boncelliai.com/en/packages/): packages, commitments and FAQ
+- [À propos](https://www.boncelliai.com/a-propos/) / [About](https://www.boncelliai.com/en/about/): who is behind BoncelliAI and the process
+- [Contact](https://www.boncelliai.com/contact/) / [EN](https://www.boncelliai.com/en/contact/): contact form
 
 ## Sections
 
@@ -21,7 +25,7 @@ BoncelliAI designs, builds and documents AI agents and workflows that answer cus
 
 ## Contact
 
-- [Contact form (EN)](https://www.boncelliai.com/en/#contact)
-- [Formulaire de contact (FR)](https://www.boncelliai.com/#contact)
+- [Contact form (EN)](https://www.boncelliai.com/en/contact/)
+- [Formulaire de contact (FR)](https://www.boncelliai.com/contact/)
 - [Upwork profile](https://www.upwork.com/freelancers/boncelli?mp_source=share)
 - [Fiverr profile](https://www.fiverr.com/s/8xdlpVg)

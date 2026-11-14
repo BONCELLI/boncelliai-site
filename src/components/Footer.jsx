@@ -1,13 +1,15 @@
 import { Mail, MapPin, Linkedin, Instagram } from "lucide-react";
-import { LANGUAGES, LANGUAGE_PATHS, useLanguage } from "../i18n/LanguageContext.jsx";
+import { LANGUAGES, useLanguage } from "../i18n/LanguageContext.jsx";
+import { pagePath } from "../lib/routes.js";
 import { siteConfig } from "../siteConfig.js";
 import Logo from "./Logo.jsx";
 
-const SECTION_IDS = ["services", "cases", "offers", "roi", "process", "about", "faq", "contact"];
+// [page, #hash] pairs; labels come from t.pages.nav.
+const LINKS = [["home"], ["solutions"], ["tools"], ["offers"], ["about"], ["contact"], ["offers", "#faq", "faq"]];
 const NAMES = { fr: "Français", en: "English" };
 
 export default function Footer() {
-  const { t, language } = useLanguage();
+  const { t, language, page, path } = useLanguage();
   const year = new Date().getFullYear();
 
   return (
@@ -15,7 +17,7 @@ export default function Footer() {
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr_1fr]">
           <div>
-            <a href="#top" className="inline-block rounded-lg">
+            <a href={path("home")} className="inline-block rounded-lg">
               <Logo dark tagline={t.hero.eyebrow} />
             </a>
             <p className="mt-4 max-w-xs text-sm leading-relaxed">{t.footer.tagline}</p>
@@ -30,10 +32,16 @@ export default function Footer() {
               {t.footer.linksTitle}
             </h2>
             <ul className="mt-4 grid grid-cols-2 gap-x-4 sm:grid-cols-1">
-              {SECTION_IDS.map((id) => (
-                <li key={id}>
-                  <a href={`#${id}`} className="inline-block py-1.5 text-sm transition-colors duration-200 hover:text-white">
-                    {t.nav[id]}
+              {LINKS.map(([key, hash = "", label = key]) => (
+                <li key={label}>
+                  <a
+                    href={path(key, hash)}
+                    aria-current={!hash && key === page ? "page" : undefined}
+                    className={`inline-block py-1.5 text-sm transition-colors duration-200 hover:text-white ${
+                      !hash && key === page ? "text-white" : ""
+                    }`}
+                  >
+                    {t.pages.nav[label]}
                   </a>
                 </li>
               ))}
@@ -73,7 +81,7 @@ export default function Footer() {
               {LANGUAGES.map((lang) => (
                 <li key={lang}>
                   <a
-                    href={LANGUAGE_PATHS[lang]}
+                    href={pagePath(lang, page)}
                     hrefLang={lang}
                     lang={lang}
                     aria-current={lang === language ? "page" : undefined}

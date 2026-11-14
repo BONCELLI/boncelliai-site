@@ -1,8 +1,9 @@
 import { translations } from "../i18n/translations.js";
-import { LANGUAGES, LANGUAGE_PATHS } from "../i18n/LanguageContext.jsx";
+import { LANGUAGES } from "../i18n/LanguageContext.jsx";
+import { pagePath } from "../lib/routes.js";
 import { siteConfig } from "../siteConfig.js";
 
-// Builds the per-language <head> tags injected at build time by
+// Builds the per-page, per-language <head> tags injected at build time by
 // scripts/prerender.mjs: title, meta, canonical, hreflang, Open Graph,
 // Twitter card and JSON-LD structured data.
 
@@ -12,11 +13,18 @@ const escapeAttr = (value) =>
 // JSON inside <script> must not be able to close the tag.
 const safeJson = (data) => JSON.stringify(data).replace(/</g, "\\u003c");
 
-export const pageUrl = (lang) => `${siteConfig.siteUrl}${LANGUAGE_PATHS[lang]}`;
+export const pageUrl = (lang, page = "home") => `${siteConfig.siteUrl}${pagePath(lang, page)}`;
 
-function structuredData(lang) {
+// Home uses the brand-level copy; inner pages have their own (t.pages.meta).
+function pageMeta(lang, page) {
   const t = translations[lang];
-  const url = pageUrl(lang);
+  return page === "home" ? t.seo : t.pages.meta[page];
+}
+
+function structuredData(lang, page) {
+  const t = translations[lang];
+  const url = pageUrl(lang, page);
+  const meta = pageMeta(lang, page);
   const inLanguage = lang === "fr" ? "fr-CA" : "en-CA";
   const orgId = `${siteConfig.siteUrl}/#organization`;
   const personId = `${siteConfig.siteUrl}/#person`;
@@ -78,13 +86,14 @@ function structuredData(lang) {
         "@type": "WebPage",
         "@id": `${url}#webpage`,
         url,
-        name: t.seo.title,
-        description: t.seo.description,
+        name: meta.title,
+        description: meta.description,
         inLanguage,
         isPartOf: { "@id": `${siteConfig.siteUrl}/#website` },
         about: { "@id": orgId },
       },
-      {
+      // The FAQ is only on the packages page, so its rich result lives there.
+      page === "offers" && {
         "@type": "FAQPage",
         "@id": `${url}#faq`,
         inLanguage,
@@ -94,28 +103,37 @@ function structuredData(lang) {
           acceptedAnswer: { "@type": "Answer", text: item.a },
         })),
       },
-    ],
+      page !== "home" && {
+        "@type": "BreadcrumbList",
+        "@id": `${url}#breadcrumb`,
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: t.pages.nav.home, item: pageUrl(lang) },
+          { "@type": "ListItem", position: 2, name: t.pages.nav[page], item: url },
+        ],
+      },
+    ].filter(Boolean),
   };
 }
 
-export function buildHead(lang) {
+export function buildHead(lang, page = "home") {
   const t = translations[lang];
+  const meta = pageMeta(lang, page);
   const other = lang === "fr" ? "en" : "fr";
-  const url = pageUrl(lang);
+  const url = pageUrl(lang, page);
   const ogImage = `${siteConfig.siteUrl}/og/og-${lang}.jpg`;
 
   const tags = [
-    `<title>${escapeAttr(t.seo.title)}</title>`,
-    `<meta name="description" content="${escapeAttr(t.seo.description)}" />`,
+    `<title>${escapeAttr(meta.title)}</title>`,
+    `<meta name="description" content="${escapeAttr(meta.description)}" />`,
     `<meta name="author" content="${escapeAttr(siteConfig.ownerName)}" />`,
     `<link rel="canonical" href="${url}" />`,
-    ...LANGUAGES.map((l) => `<link rel="alternate" hreflang="${l}" href="${pageUrl(l)}" />`),
-    `<link rel="alternate" hreflang="x-default" href="${pageUrl("fr")}" />`,
+    ...LANGUAGES.map((l) => `<link rel="alternate" hreflang="${l}" href="${pageUrl(l, page)}" />`),
+    `<link rel="alternate" hreflang="x-default" href="${pageUrl("fr", page)}" />`,
     `<meta property="og:type" content="website" />`,
     `<meta property="og:site_name" content="${siteConfig.brandName}" />`,
     `<meta property="og:url" content="${url}" />`,
-    `<meta property="og:title" content="${escapeAttr(t.seo.title)}" />`,
-    `<meta property="og:description" content="${escapeAttr(t.seo.description)}" />`,
+    `<meta property="og:title" content="${escapeAttr(meta.title)}" />`,
+    `<meta property="og:description" content="${escapeAttr(meta.description)}" />`,
     `<meta property="og:image" content="${ogImage}" />`,
     `<meta property="og:image:width" content="1200" />`,
     `<meta property="og:image:height" content="630" />`,
@@ -123,10 +141,10 @@ export function buildHead(lang) {
     `<meta property="og:locale" content="${t.seo.locale}" />`,
     `<meta property="og:locale:alternate" content="${translations[other].seo.locale}" />`,
     `<meta name="twitter:card" content="summary_large_image" />`,
-    `<meta name="twitter:title" content="${escapeAttr(t.seo.title)}" />`,
-    `<meta name="twitter:description" content="${escapeAttr(t.seo.description)}" />`,
+    `<meta name="twitter:title" content="${escapeAttr(meta.title)}" />`,
+    `<meta name="twitter:description" content="${escapeAttr(meta.description)}" />`,
     `<meta name="twitter:image" content="${ogImage}" />`,
-    `<script type="application/ld+json">${safeJson(structuredData(lang))}</script>`,
+    `<script type="application/ld+json">${safeJson(structuredData(lang, page))}</script>`,
   ];
 
   return tags.join("\n    ");

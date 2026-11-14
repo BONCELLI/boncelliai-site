@@ -2,7 +2,7 @@ import { useLanguage } from "../i18n/LanguageContext.jsx";
 import SectionHeading from "./SectionHeading.jsx";
 
 // Three steps joined by a "signal line" that runs through their markers.
-export default function Process() {
+export default function Process({ index }) {
   const { t } = useLanguage();
 
   return (
@@ -10,7 +10,7 @@ export default function Process() {
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <SectionHeading
           id="process-title"
-          index="05"
+          index={index}
           eyebrow={t.process.eyebrow}
           title={t.process.title}
           subtitle={t.process.subtitle}

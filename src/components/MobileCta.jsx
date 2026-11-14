@@ -5,7 +5,7 @@ import { useLanguage } from "../i18n/LanguageContext.jsx";
 // Sticky "Book a call" bar on small screens: appears once the hero's own
 // CTAs have scrolled away, hides again when the contact form is on screen.
 export default function MobileCta() {
-  const { t } = useLanguage();
+  const { t, path, page } = useLanguage();
   const [heroVisible, setHeroVisible] = useState(true);
   const [contactVisible, setContactVisible] = useState(false);
 
@@ -24,7 +24,7 @@ export default function MobileCta() {
     return () => observer.disconnect();
   }, []);
 
-  const shown = !heroVisible && !contactVisible;
+  const shown = page !== "contact" && !heroVisible && !contactVisible;
 
   return (
     <div
@@ -33,7 +33,7 @@ export default function MobileCta() {
       }`}
       aria-hidden={!shown}
     >
-      <a href="#contact" tabIndex={shown ? 0 : -1} className="btn-primary w-full shadow-glow">
+      <a href={path("contact")} tabIndex={shown ? 0 : -1} className="btn-primary w-full shadow-glow">
         {t.nav.cta}
         <ArrowRight size={16} aria-hidden="true" />
       </a>

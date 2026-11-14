@@ -4,15 +4,13 @@ import { useLanguage } from "../i18n/LanguageContext.jsx";
 import LanguageSwitcher from "./LanguageSwitcher.jsx";
 import Logo from "./Logo.jsx";
 
-const SECTION_IDS = ["services", "cases", "offers", "roi", "process", "faq", "contact"];
-// Shown in the desktop bar only from the xl breakpoint (keeps lg bars uncrowded).
-const XL_ONLY = new Set(["process", "faq"]);
+// One link per page; the current page is highlighted (aria-current="page").
+const NAV_PAGES = ["solutions", "tools", "offers", "about", "contact"];
 
 export default function Navbar() {
-  const { t } = useLanguage();
+  const { t, page, path } = useLanguage();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [active, setActive] = useState("");
   const toggleRef = useRef(null);
 
   useEffect(() => {
@@ -20,22 +18,6 @@ export default function Navbar() {
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  // Scroll spy: the section crossing the upper third of the viewport is "current".
-  useEffect(() => {
-    if (!("IntersectionObserver" in window)) return undefined;
-    const targets = ["top", ...SECTION_IDS].map((id) => document.getElementById(id)).filter(Boolean);
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) setActive(entry.target.id === "top" ? "" : entry.target.id);
-        });
-      },
-      { rootMargin: "-30% 0px -60% 0px" }
-    );
-    targets.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
   }, []);
 
   // Escape closes the mobile menu and returns focus to its toggle.
@@ -52,7 +34,8 @@ export default function Navbar() {
   }, [mobileOpen]);
 
   const solid = scrolled || mobileOpen;
-  const links = SECTION_IDS.map((id) => ({ id, label: t.nav[id] }));
+  const active = page;
+  const links = NAV_PAGES.map((id) => ({ id, label: t.pages.nav[id] }));
   const close = () => setMobileOpen(false);
 
   return (
@@ -67,7 +50,7 @@ export default function Navbar() {
             solid ? "border-navy-100 bg-paper/90 shadow-card" : "border-white/10 bg-navy-900/30"
           }`}
         >
-          <a href="#top" className="-m-1 flex items-center rounded-lg p-1" aria-label={t.a11y.home} onClick={close}>
+          <a href={path("home")} className="-m-1 flex items-center rounded-lg p-1" aria-label={t.a11y.home} onClick={close}>
             <Logo dark={!solid} />
           </a>
 
@@ -76,10 +59,10 @@ export default function Navbar() {
               {links.map((link) => {
                 const current = active === link.id;
                 return (
-                  <li key={link.id} className={XL_ONLY.has(link.id) ? "hidden xl:block" : ""}>
+                  <li key={link.id}>
                     <a
-                      href={`#${link.id}`}
-                      aria-current={current ? "true" : undefined}
+                      href={path(link.id)}
+                      aria-current={current ? "page" : undefined}
                       className={`relative whitespace-nowrap rounded-full px-2.5 py-2 text-sm font-medium transition-colors duration-200 xl:px-3.5 ${
                         solid
                           ? current
@@ -106,7 +89,7 @@ export default function Navbar() {
 
           <div className="hidden items-center gap-2 lg:flex xl:gap-3">
             <LanguageSwitcher dark={!solid} />
-            <a href="#contact" className="btn-primary whitespace-nowrap px-4 py-2.5 xl:px-5">
+            <a href={path("contact")} className="btn-primary whitespace-nowrap px-4 py-2.5 xl:px-5">
               {t.nav.cta}
             </a>
           </div>
@@ -142,9 +125,9 @@ export default function Navbar() {
                 {links.map((link) => (
                   <li key={link.id}>
                     <a
-                      href={`#${link.id}`}
+                      href={path(link.id)}
                       onClick={close}
-                      aria-current={active === link.id ? "true" : undefined}
+                      aria-current={active === link.id ? "page" : undefined}
                       className={`flex items-center justify-between rounded-xl px-4 py-3.5 text-base font-medium transition-colors duration-200 hover:bg-navy-50 ${
                         active === link.id ? "bg-navy-50 text-navy-900" : "text-navy-800"
                       }`}
@@ -154,7 +137,7 @@ export default function Navbar() {
                   </li>
                 ))}
               </ul>
-              <a href="#contact" onClick={close} className="btn-primary mt-2 w-full">
+              <a href={path("contact")} onClick={close} className="btn-primary mt-2 w-full">
                 {t.nav.cta}
               </a>
             </nav>

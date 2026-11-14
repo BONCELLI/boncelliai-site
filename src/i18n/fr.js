@@ -475,7 +475,7 @@ export const fr = {
     openMenu: "Ouvrir le menu",
     closeMenu: "Fermer le menu",
     mainNav: "Navigation principale",
-    home: "BoncelliAI — retour en haut",
+    home: "BoncelliAI — accueil",
     backToTop: "Retour en haut",
   },
 };

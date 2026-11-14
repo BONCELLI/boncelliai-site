@@ -6,8 +6,8 @@ import SectionHeading from "./SectionHeading.jsx";
 const WORK_WEEKS_PER_YEAR = 48;
 const HOURS_PER_WORK_WEEK = 40;
 
-export default function RoiCalculator() {
-  const { t, language } = useLanguage();
+export default function RoiCalculator({ index }) {
+  const { t, language, path } = useLanguage();
   const [hours, setHours] = useState(10);
   const [rate, setRate] = useState(45);
   const [share, setShare] = useState(60);
@@ -34,7 +34,7 @@ export default function RoiCalculator() {
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <SectionHeading
           id="roi-title"
-          index="03"
+          index={index}
           dark
           eyebrow={t.roi.eyebrow}
           title={t.roi.title}
@@ -84,7 +84,7 @@ export default function RoiCalculator() {
 
             <div>
               <a
-                href="#contact"
+                href={path("contact")}
                 className="group inline-flex w-full items-center justify-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-semibold text-navy-900 transition-colors duration-200 hover:bg-accent-soft sm:w-auto"
               >
                 {t.roi.cta}

@@ -6,5 +6,6 @@
 // -----------------------------------------------------------------------
 import { fr } from "./fr.js";
 import { en } from "./en.js";
+import { pages } from "./pages.js";
 
-export const translations = { fr, en };
+export const translations = { fr: { ...fr, pages: pages.fr }, en: { ...en, pages: pages.en } };
