@@ -1,9 +1,9 @@
-import { Mail, Linkedin, Instagram } from "lucide-react";
+import { Mail, MapPin, Linkedin, Instagram } from "lucide-react";
 import { LANGUAGES, LANGUAGE_PATHS, useLanguage } from "../i18n/LanguageContext.jsx";
 import { siteConfig } from "../siteConfig.js";
 import Logo from "./Logo.jsx";
 
-const SECTION_IDS = ["services", "roi", "process", "about", "faq", "contact"];
+const SECTION_IDS = ["services", "cases", "offers", "roi", "process", "about", "faq", "contact"];
 const NAMES = { fr: "Français", en: "English" };
 
 export default function Footer() {
@@ -19,13 +19,17 @@ export default function Footer() {
               <Logo dark tagline={t.hero.eyebrow} />
             </a>
             <p className="mt-4 max-w-xs text-sm leading-relaxed">{t.footer.tagline}</p>
+            <p className="mt-4 flex items-center gap-2 text-xs text-navy-400">
+              <MapPin size={14} aria-hidden="true" className="shrink-0" />
+              {t.footer.location}
+            </p>
           </div>
 
           <nav aria-labelledby="footer-nav">
             <h2 id="footer-nav" className="font-mono text-xs font-medium uppercase tracking-[0.16em] text-white">
               {t.footer.linksTitle}
             </h2>
-            <ul className="mt-4 space-y-1">
+            <ul className="mt-4 grid grid-cols-2 gap-x-4 sm:grid-cols-1">
               {SECTION_IDS.map((id) => (
                 <li key={id}>
                   <a href={`#${id}`} className="inline-block py-1.5 text-sm transition-colors duration-200 hover:text-white">

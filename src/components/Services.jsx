@@ -30,8 +30,9 @@ export default function Services() {
               <li
                 key={service.title}
                 data-reveal
+                data-spotlight
                 style={{ "--reveal-delay": `${(index % 2) * 90}ms` }}
-                className={`group relative flex flex-col overflow-hidden rounded-3xl border p-7 transition-[box-shadow,border-color,transform] duration-300 hover:-translate-y-1 sm:p-9 ${SPANS[index]} ${
+                className={`spotlight group relative flex flex-col overflow-hidden rounded-3xl border p-7 transition-[box-shadow,border-color,transform] duration-300 hover:-translate-y-1 sm:p-9 ${SPANS[index]} ${
                   featured
                     ? "on-dark border-navy-800 bg-navy-900 text-white shadow-card hover:shadow-card-hover"
                     : "border-navy-100 bg-white shadow-card hover:border-accent/30 hover:shadow-card-hover"
@@ -47,17 +48,12 @@ export default function Services() {
                   <span
                     aria-hidden="true"
                     className={`flex h-12 w-12 items-center justify-center rounded-2xl transition-colors duration-300 ${
-                      featured
-                        ? "bg-accent text-white"
-                        : "bg-navy-900 text-accent-soft group-hover:bg-accent group-hover:text-white"
+                      featured ? "bg-accent text-white" : "bg-navy-900 text-accent-soft group-hover:bg-accent group-hover:text-white"
                     }`}
                   >
                     <Icon size={22} />
                   </span>
-                  <span
-                    aria-hidden="true"
-                    className={`font-mono text-xs ${featured ? "text-navy-300" : "text-navy-400"}`}
-                  >
+                  <span aria-hidden="true" className={`font-mono text-xs ${featured ? "text-navy-300" : "text-navy-400"}`}>
                     {String(index + 1).padStart(2, "0")}
                   </span>
                 </div>
@@ -68,11 +64,7 @@ export default function Services() {
                 >
                   {service.title}
                 </h3>
-                <p
-                  className={`relative mt-3 max-w-md text-[0.95rem] leading-relaxed ${
-                    featured ? "text-navy-200" : "text-navy-500"
-                  }`}
-                >
+                <p className={`relative mt-3 max-w-md text-[0.95rem] leading-relaxed ${featured ? "text-navy-200" : "text-navy-500"}`}>
                   {service.description}
                 </p>
               </li>
@@ -81,15 +73,10 @@ export default function Services() {
         </ul>
 
         <div data-reveal className="mt-14 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-          <p className="font-mono text-xs font-medium uppercase tracking-[0.18em] text-navy-400">
-            {t.services.stackTitle}
-          </p>
+          <p className="font-mono text-xs font-medium uppercase tracking-[0.18em] text-navy-400">{t.services.stackTitle}</p>
           <ul className="flex flex-wrap justify-center gap-2">
             {t.services.stack.map((tool) => (
-              <li
-                key={tool}
-                className="rounded-full border border-navy-100 bg-white px-3.5 py-1.5 text-sm font-medium text-navy-700"
-              >
+              <li key={tool} className="rounded-full border border-navy-100 bg-white px-3.5 py-1.5 text-sm font-medium text-navy-700">
                 {tool}
               </li>
             ))}

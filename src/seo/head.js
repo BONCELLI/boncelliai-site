@@ -17,10 +17,13 @@ export const pageUrl = (lang) => `${siteConfig.siteUrl}${LANGUAGE_PATHS[lang]}`;
 function structuredData(lang) {
   const t = translations[lang];
   const url = pageUrl(lang);
+  const inLanguage = lang === "fr" ? "fr-CA" : "en-CA";
   const orgId = `${siteConfig.siteUrl}/#organization`;
+  const personId = `${siteConfig.siteUrl}/#person`;
   const sameAs = [siteConfig.upworkUrl, siteConfig.fiverrUrl, siteConfig.linkedinUrl, siteConfig.instagramUrl].filter(
     Boolean
   );
+  const jobTitle = t.about.title.split("—")[1]?.trim();
 
   return {
     "@context": "https://schema.org",
@@ -34,10 +37,33 @@ function structuredData(lang) {
         image: `${siteConfig.siteUrl}/og/og-${lang}.jpg`,
         description: t.seo.description,
         email: siteConfig.email,
-        founder: { "@type": "Person", name: siteConfig.ownerName, jobTitle: t.about.title.split("—")[1]?.trim() },
+        founder: { "@id": personId },
         areaServed: { "@type": "Place", name: "Worldwide" },
         availableLanguage: ["fr", "en"],
         knowsAbout: ["AI automation", "AI agents", "n8n", "Claude API", "OpenAI API", "Workflow automation"],
+        sameAs,
+        hasOfferCatalog: {
+          "@type": "OfferCatalog",
+          name: t.offers.title,
+          itemListElement: t.offers.items.map((offer) => ({
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: offer.name,
+              description: `${offer.tagline} ${offer.features.join(", ")}.`,
+              provider: { "@id": orgId },
+            },
+          })),
+        },
+      },
+      {
+        "@type": "Person",
+        "@id": personId,
+        name: siteConfig.ownerName,
+        jobTitle,
+        worksFor: { "@id": orgId },
+        knowsLanguage: ["fr-CA", "en"],
+        knowsAbout: ["AI automation", "n8n", "Claude API", "OpenAI API"],
         sameAs,
       },
       {
@@ -54,14 +80,14 @@ function structuredData(lang) {
         url,
         name: t.seo.title,
         description: t.seo.description,
-        inLanguage: lang === "fr" ? "fr-CA" : "en-CA",
+        inLanguage,
         isPartOf: { "@id": `${siteConfig.siteUrl}/#website` },
         about: { "@id": orgId },
       },
       {
         "@type": "FAQPage",
         "@id": `${url}#faq`,
-        inLanguage: lang === "fr" ? "fr-CA" : "en-CA",
+        inLanguage,
         mainEntity: t.faq.items.map((item) => ({
           "@type": "Question",
           name: item.q,
@@ -81,6 +107,7 @@ export function buildHead(lang) {
   const tags = [
     `<title>${escapeAttr(t.seo.title)}</title>`,
     `<meta name="description" content="${escapeAttr(t.seo.description)}" />`,
+    `<meta name="author" content="${escapeAttr(siteConfig.ownerName)}" />`,
     `<link rel="canonical" href="${url}" />`,
     ...LANGUAGES.map((l) => `<link rel="alternate" hreflang="${l}" href="${pageUrl(l)}" />`),
     `<link rel="alternate" hreflang="x-default" href="${pageUrl("fr")}" />`,

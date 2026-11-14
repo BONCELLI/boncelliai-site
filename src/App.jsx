@@ -4,15 +4,19 @@ import Navbar from "./components/Navbar.jsx";
 import Hero from "./components/Hero.jsx";
 import TrustStrip from "./components/TrustStrip.jsx";
 import Services from "./components/Services.jsx";
+import UseCases from "./components/UseCases.jsx";
 import RoiCalculator from "./components/RoiCalculator.jsx";
+import Diagnostic from "./components/Diagnostic.jsx";
 import Process from "./components/Process.jsx";
+import Offers from "./components/Offers.jsx";
 import Commitments from "./components/Commitments.jsx";
+import CtaBand from "./components/CtaBand.jsx";
 import About from "./components/About.jsx";
 import Faq from "./components/Faq.jsx";
-import CtaBand from "./components/CtaBand.jsx";
 import Contact from "./components/Contact.jsx";
 import Footer from "./components/Footer.jsx";
 import MobileCta from "./components/MobileCta.jsx";
+import BackToTop from "./components/BackToTop.jsx";
 import LangSuggest from "./components/LangSuggest.jsx";
 
 // One shared observer animates every [data-reveal] element once it scrolls
@@ -50,9 +54,27 @@ function useScrollReveal() {
   }, []);
 }
 
+// Cursor-following glow on [data-spotlight] cards (see .spotlight in
+// index.css). One delegated listener; skipped entirely on touch devices.
+function useSpotlight() {
+  useEffect(() => {
+    if (!window.matchMedia("(hover: hover)").matches) return undefined;
+    const onMove = (e) => {
+      const card = e.target.closest?.("[data-spotlight]");
+      if (!card) return;
+      const rect = card.getBoundingClientRect();
+      card.style.setProperty("--mx", `${e.clientX - rect.left}px`);
+      card.style.setProperty("--my", `${e.clientY - rect.top}px`);
+    };
+    document.addEventListener("pointermove", onMove, { passive: true });
+    return () => document.removeEventListener("pointermove", onMove);
+  }, []);
+}
+
 export default function App() {
   const { t } = useLanguage();
   useScrollReveal();
+  useSpotlight();
 
   return (
     <>
@@ -67,8 +89,11 @@ export default function App() {
         <Hero />
         <TrustStrip />
         <Services />
+        <UseCases />
         <RoiCalculator />
+        <Diagnostic />
         <Process />
+        <Offers />
         <Commitments />
         <CtaBand />
         <About />
@@ -77,6 +102,7 @@ export default function App() {
       </main>
       <Footer />
       <MobileCta />
+      <BackToTop />
       <LangSuggest />
     </>
   );

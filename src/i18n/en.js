@@ -1,0 +1,466 @@
+// English (en-CA) copy. Mirrors the structure of fr.js key for key.
+
+export const en = {
+  nav: {
+    services: "Solutions",
+    cases: "Use cases",
+    offers: "Packages",
+    roi: "Calculator",
+    process: "Process",
+    about: "About",
+    faq: "FAQ",
+    contact: "Contact",
+    cta: "Book a Call",
+  },
+  hero: {
+    eyebrow: "AI Automation · Agents · n8n",
+    title: "You run the business.\nAI handles the busywork.",
+    subtitle:
+      "I build custom AI agents and workflows (n8n, Claude, OpenAI) that answer your customers, process your documents and connect your tools — giving you back hours every week.",
+    ctaPrimary: "Book a Call",
+    ctaSecondary: "Calculate my savings",
+    badge: "Available for new projects",
+    stats: [
+      { value: "24/7", label: "Always-on workflows" },
+      { value: "FR / EN", label: "Native bilingual service" },
+      { value: "100%", label: "Custom-built, no lock-in" },
+    ],
+  },
+  demo: {
+    windowTitle: "workflow · in production",
+    running: "Running",
+    done: "Done",
+    tabsLabel: "Choose a scenario",
+    hint: "Pick a scenario: this is exactly the kind of system I build.",
+    doneLine: "Completed in {s}s — zero human intervention",
+    scenarios: [
+      {
+        tab: "Customer support",
+        total: "4.2",
+        nodes: [
+          { label: "Trigger", text: "Email received" },
+          { label: "AI Agent", text: "Understands & drafts" },
+          { label: "Action", text: "Replies + CRM" },
+        ],
+        logs: [
+          [0, 'Email received: "Where is my order #4821?"'],
+          [1, "Intent detected: order tracking (96%)"],
+          [1, "Order #4821 found — shipped Oct 14"],
+          [1, "Personalized reply drafted"],
+          [2, "Reply sent · customer record updated"],
+        ],
+      },
+      {
+        tab: "Leads",
+        total: "3.8",
+        nodes: [
+          { label: "Trigger", text: "Web form" },
+          { label: "AI Agent", text: "Qualifies the lead" },
+          { label: "Action", text: "Alert + booking" },
+        ],
+        logs: [
+          [0, "New form: small business, 25 employees"],
+          [1, "Need analyzed: automate invoicing"],
+          [1, "Qualification score: 82/100 — hot lead"],
+          [2, "Personalized follow-up email sent"],
+          [2, "Slack alert · booking link offered"],
+        ],
+      },
+      {
+        tab: "Invoices",
+        total: "2.9",
+        nodes: [
+          { label: "Trigger", text: "PDF received" },
+          { label: "AI Agent", text: "Extracts the data" },
+          { label: "Action", text: "Bookkeeping" },
+        ],
+        logs: [
+          [0, "PDF invoice received — ABC Supplies Inc."],
+          [1, "Amount: $1,248.50 · due: Nov 30"],
+          [1, "Sales taxes extracted · no duplicate found"],
+          [2, "Row added to Google Sheets"],
+          [2, "Payment reminder scheduled"],
+        ],
+      },
+    ],
+  },
+  trust: {
+    label: "I connect the tools you already use",
+    more: "+ Make, Zapier, Airtable, HubSpot and any REST API",
+  },
+  services: {
+    eyebrow: "What I Automate",
+    title: "AI agents that work for you",
+    subtitle: "One craft, mastered: turning your repetitive tasks into reliable intelligent systems.",
+    items: [
+      {
+        title: "Conversational AI agents",
+        description:
+          "Claude- or OpenAI-powered assistants that answer your customers, qualify leads and only involve you when it matters.",
+      },
+      {
+        title: "Custom n8n workflows",
+        description:
+          "End-to-end scenarios that chain your manual steps: emails, forms, invoices, notifications — designed, tested and documented.",
+      },
+      {
+        title: "AI document processing",
+        description:
+          "Automatic extraction, sorting and summarizing of invoices, contracts or emails, with results sent straight into your tools.",
+      },
+      {
+        title: "Tool integrations",
+        description:
+          "Google Workspace, CRM, Slack, Notion, Airtable, custom APIs: your apps finally talk to each other, no copy-pasting.",
+      },
+    ],
+    stackTitle: "Tools I work with",
+    stack: ["n8n", "Claude API", "OpenAI API", "Make", "Zapier", "Webhooks & REST APIs"],
+  },
+  cases: {
+    eyebrow: "Use cases",
+    title: "Concrete examples, ready to adapt",
+    subtitle:
+      "Each card describes a system I build regularly. The gain shown is a typical estimate: yours is assessed during the scoping call.",
+    filterLabel: "Filter by area",
+    all: "All",
+    gainLabel: "Typical gain",
+    flowLabel: "The automated flow",
+    categories: { support: "Customer service", sales: "Sales", admin: "Admin", ops: "Operations" },
+    items: [
+      {
+        category: "support",
+        industry: "E-commerce",
+        title: "Tier-1 support that answers on its own",
+        problem: "The same questions come back every day: order tracking, returns, delivery times.",
+        flow: ["Email or chat received", "The AI agent reads the order and drafts", "Reply sent, complex cases escalated"],
+        gain: "5 to 10 h / week",
+        tools: ["Gmail", "Shopify", "Claude"],
+      },
+      {
+        category: "sales",
+        industry: "Real estate · brokerage",
+        title: "Leads qualified before you even call back",
+        problem: "Web inquiries pile up and the best prospects wait too long.",
+        flow: ["Form or listing inquiry received", "Scoring, enrichment and CRM record", "Personalized email + booking link"],
+        gain: "Reply in under 2 min",
+        tools: ["HubSpot", "Google Calendar", "n8n"],
+      },
+      {
+        category: "admin",
+        industry: "SMB · bookkeeping",
+        title: "Supplier invoices entered without you",
+        problem: "Every PDF invoice is retyped by hand, with errors and late payments.",
+        flow: ["PDF received by email", "Amounts, taxes and due dates extracted", "Ledger row + payment reminder"],
+        gain: "3 to 6 h / week",
+        tools: ["Gmail", "Google Sheets", "OpenAI"],
+      },
+      {
+        category: "ops",
+        industry: "Clinic · services",
+        title: "Automatic appointment reminders",
+        problem: "No-shows cost empty slots and follow-up calls.",
+        flow: ["Appointment created in the calendar", "Reminder 48 h and 2 h before, in EN or FR", "Confirmation or reschedule recorded"],
+        gain: "Fewer no-shows, zero reminder calls",
+        tools: ["Google Calendar", "WhatsApp", "n8n"],
+      },
+      {
+        category: "ops",
+        industry: "Agency · consulting",
+        title: "One-click client onboarding",
+        problem: "Every new client needs the same series of emails, folders and access to be created.",
+        flow: ["Contract signed", "Drive folder, Slack channel and tasks created", "Personalized welcome email sent"],
+        gain: "2 h saved per client",
+        tools: ["Google Drive", "Slack", "Notion"],
+      },
+      {
+        category: "admin",
+        industry: "Human resources",
+        title: "Continuous résumé screening",
+        problem: "Dozens of résumés to read for a handful of truly relevant profiles.",
+        flow: ["Résumé received by email or form", "Summary, score and strengths extracted", "Board updated + reply sent"],
+        gain: "Up to 80% of initial screening",
+        tools: ["Outlook", "Airtable", "Claude"],
+      },
+    ],
+  },
+  roi: {
+    eyebrow: "Calculator",
+    title: "How much time could automation give you back?",
+    subtitle: "Adjust the sliders to match your reality. Results update live.",
+    hoursLabel: "Hours per week on repetitive tasks",
+    rateLabel: "Hourly cost of that time",
+    shareLabel: "Automatable share (estimate)",
+    resultHours: "hours saved per year",
+    resultValue: "in value freed up per year",
+    weeks: "≈ {n} full-time work weeks",
+    disclaimer: "Indicative estimate over 48 weeks. Your real potential is assessed for free during the scoping call.",
+    cta: "Let's talk about these savings",
+  },
+  diagnostic: {
+    eyebrow: "Quick diagnostic",
+    title: "Which automation should you start with?",
+    subtitle: "Three questions, thirty seconds: I'll suggest a first approach tailored to your situation.",
+    stepLabel: "Question {n} of {total}",
+    back: "Back",
+    restart: "Start over",
+    questions: [
+      {
+        q: "Which task costs you the most time?",
+        options: [
+          "Answering emails and customers",
+          "Following up with leads",
+          "Entering documents or invoices",
+          "Copy-pasting between tools",
+        ],
+      },
+      {
+        q: "How many hours a week do you or your team spend on it?",
+        options: ["Under 5 h", "5 to 10 h", "10 to 20 h", "Over 20 h"],
+      },
+      {
+        q: "Which tools do you already use?",
+        options: ["Google Workspace", "Microsoft 365", "A CRM (HubSpot, Pipedrive…)", "Nothing specific yet"],
+      },
+    ],
+    resultEyebrow: "Your first approach",
+    recommendations: [
+      {
+        title: "A support agent that answers on its own",
+        text: "An AI agent reads every request, finds the answer in your tools and replies in your tone. You only see the cases that deserve your attention.",
+      },
+      {
+        title: "An agent that qualifies and follows up with leads",
+        text: "Every inquiry is scored, enriched and followed up automatically. Your best prospects get a personalized reply within minutes.",
+      },
+      {
+        title: "A document-processing flow",
+        text: "Your PDFs, invoices and forms are read by AI, checked, then sent to the right place: spreadsheet, bookkeeping or CRM.",
+      },
+      {
+        title: "Integrations that connect your tools",
+        text: "An n8n workflow keeps your apps in sync in real time, with no re-entry. Each action triggers the next, with alerts when something looks off.",
+      },
+    ],
+    offerLabel: "Suggested package",
+    hoursLabel: "≈ {n} h saved per year",
+    hoursNote: "assuming 60% of the task is automated, over 48 weeks",
+    cta: "Get my detailed approach",
+    ctaNote: "Your answers pre-fill the contact form. Free, no commitment.",
+    prefill: "Quick diagnostic — Task: {task}. Time: {hours} per week. Tools: {tools}. Suggested approach: {reco}.",
+  },
+  process: {
+    eyebrow: "Process",
+    title: "From need to production system",
+    subtitle: "A simple, transparent process with no surprises.",
+    steps: [
+      {
+        duration: "Day 1",
+        title: "Scoping call",
+        description: "We identify the tasks costing you the most time and decide what is actually worth automating.",
+      },
+      {
+        duration: "Days 2 to 15",
+        title: "Design and build",
+        description: "I build the workflow or AI agent, testing on your real use cases before anything goes live.",
+      },
+      {
+        duration: "Go-live and beyond",
+        title: "Delivery and follow-up",
+        description: "Go-live, clear documentation and post-launch adjustments so the system stays reliable.",
+      },
+    ],
+  },
+  offers: {
+    eyebrow: "Packages",
+    title: "Three ways to work together",
+    subtitle: "A fixed price is quoted after the scoping call, based on scope. No surprise invoices.",
+    popular: "Most requested",
+    deliveryLabel: "Timeline",
+    idealLabel: "Ideal for",
+    cta: "Discuss this package",
+    note: "Every package includes the free scoping call, tests on your real cases and documentation in English or French.",
+    items: [
+      {
+        name: "Targeted automation",
+        tagline: "One workflow, one problem solved.",
+        delivery: "A few days",
+        ideal: "A specific task that comes back every day",
+        features: [
+          "One complete n8n or Make workflow",
+          "Connected to 2 or 3 of your tools",
+          "Tests on your real cases",
+          "Clear documentation",
+          "2 weeks of adjustments included",
+        ],
+      },
+      {
+        name: "Full AI agent",
+        tagline: "An agent that understands, decides and acts.",
+        delivery: "1 to 3 weeks",
+        ideal: "High-volume support, leads or documents",
+        features: [
+          "Custom Claude or OpenAI agent",
+          "Multiple integrations and data sources",
+          "Guardrails and human escalation",
+          "Built-in error alerts",
+          "One-hour training for your team",
+          "30 days of adjustments included",
+        ],
+      },
+      {
+        name: "Automation partner",
+        tagline: "A specialist by your side, every month.",
+        delivery: "Ongoing",
+        ideal: "Businesses that want to automate step by step",
+        features: [
+          "Automation roadmap",
+          "New automations every month",
+          "Monitoring and maintenance",
+          "Priority response",
+          "Monthly savings report",
+        ],
+      },
+    ],
+  },
+  about: {
+    eyebrow: "About",
+    title: "Frank Laro — AI Automation Specialist",
+    paragraph1:
+      "Based in Canada, I focus on one thing: building automation systems and AI agents that actually work in production. Technical rigor, documented deliverables and clear communication from start to finish.",
+    paragraph2:
+      "Natively bilingual (Canadian French and English), I work equally well with French- and English-speaking businesses, with no loss of nuance in understanding your needs.",
+    highlights: [
+      { label: "Specialty", value: "AI Automation" },
+      { label: "Tools", value: "n8n, Claude API, OpenAI API" },
+      { label: "Languages", value: "FR-CA / EN" },
+      { label: "Platforms", value: "Upwork, Fiverr" },
+    ],
+  },
+  faq: {
+    eyebrow: "FAQ",
+    title: "Frequently asked questions",
+    items: [
+      {
+        q: "How much does an automation project cost?",
+        a: "Every project is quoted after the scoping call, based on its complexity. You get a fixed price and a clear scope before any work begins — no surprises.",
+      },
+      {
+        q: "How long does delivery take?",
+        a: "A simple automation is often delivered within a few days. A more complete AI agent with several integrations usually takes one to three weeks.",
+      },
+      {
+        q: "Is my data safe?",
+        a: "Workflows can run on your own account or a self-hosted n8n instance: your credentials stay yours. Only the necessary data passes through AI APIs, and nothing is kept on my side after delivery.",
+      },
+      {
+        q: "Do I need technical skills?",
+        a: "No. I handle all the technical work and hand over clear documentation, in English or French, so you can use and understand your system.",
+      },
+      {
+        q: "What happens if something breaks?",
+        a: "Workflows include error alerts so nothing goes unnoticed. Follow-up is included after delivery, and an optional maintenance plan is available.",
+      },
+      {
+        q: "I'm not sure what to automate yet. Is that a problem?",
+        a: "Not at all — that's exactly what the scoping call is for. We review your repetitive tasks and I point out the ones with the best return on investment.",
+      },
+      {
+        q: "What's the difference between a workflow and an AI agent?",
+        a: "A workflow follows fixed rules: if A, then B. An AI agent understands context (an email, a document) and decides what action to take. I combine both: the agent reasons, the workflow executes reliably.",
+      },
+      {
+        q: "Do you work with businesses outside Canada?",
+        a: "Yes. Projects are fully remote, in English or French, with clients in Canada, Europe and the United States. We communicate by video call and email.",
+      },
+    ],
+  },
+  contact: {
+    eyebrow: "Contact",
+    title: "Let's talk about your automation",
+    subtitle: "Describe the task you'd love to stop doing by hand — I'll get back to you quickly with a first approach.",
+    form: {
+      name: "Name",
+      namePlaceholder: "Your full name",
+      email: "Email",
+      emailPlaceholder: "you@example.com",
+      message: "Message",
+      messagePlaceholder: "Which task do you want to automate?",
+      submit: "Send Message",
+      submitting: "Sending...",
+      success: "Thanks! Your message has been sent. I'll get back to you shortly.",
+      mailto: "Your email app opened with your message — just hit send.",
+      error: "Something went wrong. Please try again or email me directly.",
+    },
+    platformsTitle: "Prefer a freelance platform?",
+    platformsText: "Check out my profile, client reviews, and reach out directly.",
+    upworkCta: "View My Upwork Profile",
+    fiverrCta: "View My Fiverr Profile",
+  },
+  contactExtra: {
+    company: "Company",
+    optional: "optional",
+    companyPlaceholder: "Your company name",
+    topicLabel: "What you want to automate",
+    topics: ["Customer support", "Leads", "Documents & invoices", "Integrations", "Other"],
+    privacy: "Your information stays confidential and is only used to reply to you.",
+    replyNote: "Fast reply, in English or French.",
+    directTitle: "Or email me directly",
+    bookCta: "Book a slot online",
+    required: "Required field",
+    prefilled: "Your diagnostic was added to the message.",
+  },
+  commitments: {
+    eyebrow: "Commitments",
+    title: "What you can count on",
+    subtitle: "Concrete guarantees, put in writing before the first day of work.",
+    items: [
+      { title: "Fixed price, clear scope", description: "A firm quote after the scoping call. No surprise invoices, no overruns." },
+      {
+        title: "Your credentials stay yours",
+        description: "Workflows on your own account or a self-hosted n8n instance. No lock-in, no dependency.",
+      },
+      { title: "Bilingual documentation", description: "Every system ships with clear documentation, in English or French." },
+      {
+        title: "Alerts and follow-up included",
+        description: "Built-in error alerts and post-launch adjustments so everything stays reliable.",
+      },
+    ],
+  },
+  cta: {
+    title: "Ready to win back hours every week?",
+    text: "Start with a scoping call: together we'll pinpoint what's actually worth automating.",
+    button: "Book my scoping call",
+    note: "Free · no commitment · in English or French",
+  },
+  footer: {
+    tagline: "AI automation and intelligent agents, delivered with rigor.",
+    linksTitle: "Navigation",
+    contactTitle: "Contact",
+    rights: "All rights reserved.",
+    builtWith: "Built with React, Tailwind CSS and Framer Motion.",
+    location: "Canada · remote projects, worldwide",
+  },
+  languageSwitcher: { label: "Language" },
+  // Shown on the *French* page to English-speaking visitors.
+  langSuggest: {
+    text: "This site is also available in English.",
+    action: "View in English",
+    dismiss: "Dismiss",
+  },
+  seo: {
+    title: "BoncelliAI — Custom AI Agents & Automation (n8n, Claude, OpenAI)",
+    description:
+      "Custom AI agents and n8n workflows that answer your customers, process your documents and connect your tools. Fixed pricing, bilingual EN/FR service, no lock-in.",
+    ogImageAlt: "BoncelliAI — You run the business. AI handles the busywork.",
+    locale: "en_CA",
+  },
+  a11y: {
+    skip: "Skip to main content",
+    openMenu: "Open menu",
+    closeMenu: "Close menu",
+    mainNav: "Main navigation",
+    home: "BoncelliAI — back to top",
+    backToTop: "Back to top",
+  },
+};

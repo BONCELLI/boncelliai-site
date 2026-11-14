@@ -14,7 +14,7 @@ export default function Commitments() {
         <div className="lg:sticky lg:top-32 lg:self-start">
           <SectionHeading
             id="commitments-title"
-            index="04"
+            index="07"
             align="left"
             eyebrow={t.commitments.eyebrow}
             title={t.commitments.title}

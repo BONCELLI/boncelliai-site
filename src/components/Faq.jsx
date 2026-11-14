@@ -13,7 +13,7 @@ export default function Faq() {
     <section id="faq" aria-labelledby="faq-title" className="border-t border-navy-100 bg-paper py-24 sm:py-32">
       <div className="mx-auto grid max-w-6xl gap-12 px-4 sm:px-6 lg:grid-cols-[1fr_1.6fr] lg:gap-20">
         <div className="lg:sticky lg:top-32 lg:self-start">
-          <SectionHeading id="faq-title" index="06" align="left" eyebrow={t.faq.eyebrow} title={t.faq.title} />
+          <SectionHeading id="faq-title" index="09" align="left" eyebrow={t.faq.eyebrow} title={t.faq.title} />
         </div>
 
         <div data-reveal className="divide-y divide-navy-100 border-y border-navy-100">

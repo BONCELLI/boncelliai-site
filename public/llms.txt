@@ -2,12 +2,22 @@
 
 > Custom AI automation and AI agents (n8n, Claude API, OpenAI API) built by Frank Laro, a natively bilingual (Canadian French / English) automation specialist based in Canada, serving clients internationally. / Agents IA et automatisation sur mesure, service bilingue français / anglais.
 
-BoncelliAI designs, builds and documents AI agents and workflows that answer customers, qualify leads, process documents (invoices, contracts, emails) and connect business tools (Google Workspace, CRM, Slack, Notion, Airtable, custom APIs). Projects start with a free scoping call and are quoted at a fixed price with a clear scope. Workflows can run on the client's own account or a self-hosted n8n instance (no lock-in), include error alerts, and ship with bilingual documentation.
+BoncelliAI designs, builds and documents AI agents and workflows that answer customers, qualify leads, process documents (invoices, contracts, emails) and connect business tools (Google Workspace, Microsoft 365, CRM, Slack, Notion, Airtable, Shopify, Stripe, custom APIs). Projects start with a free scoping call and are quoted at a fixed price with a clear scope. Workflows can run on the client's own account or a self-hosted n8n instance (no lock-in), include error alerts, and ship with bilingual documentation.
 
 ## Pages
 
-- [Français (FR-CA)](https://www.boncelliai.com/): services, ROI calculator, process, commitments, about, FAQ and contact form
+- [Français (FR-CA)](https://www.boncelliai.com/): solutions, cas d'usage, calculateur de gains, diagnostic express, méthode, offres, engagements, à propos, FAQ et formulaire de contact
 - [English (EN-CA)](https://www.boncelliai.com/en/): same content in English
+
+## Sections
+
+- Solutions: conversational AI agents, custom n8n workflows, AI document processing, tool integrations
+- Use cases: tier-1 customer support, lead qualification, supplier-invoice entry, appointment reminders, client onboarding, résumé screening (typical gains are estimates)
+- Savings calculator: hours and value freed per year, from hours/week, hourly cost and automatable share
+- Quick diagnostic: three questions that suggest a first automation and a suitable package
+- Packages: Targeted automation (a few days), Full AI agent (1 to 3 weeks, most requested), Automation partner (ongoing monthly). Fixed price quoted after the scoping call.
+- Process: scoping call (day 1), design and build (days 2 to 15), delivery and follow-up
+- Commitments: fixed price and clear scope, client keeps credentials, bilingual documentation, alerts and follow-up included
 
 ## Contact
 

@@ -18,11 +18,18 @@ export default function Hero() {
       aria-labelledby="hero-title"
       className="on-dark relative isolate overflow-hidden bg-navy-900 pb-16 pt-28 sm:pb-24 sm:pt-36 lg:pb-28 lg:pt-40"
     >
+      {/* Backdrop: drifting aurora blobs, dot grid, film grain. All decorative. */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-20 overflow-hidden">
+        <div className="absolute -top-40 left-[55%] h-[32rem] w-[32rem] -translate-x-1/2 rounded-full bg-accent/30 blur-3xl will-change-transform motion-safe:animate-aurora" />
+        <div className="absolute -right-32 top-1/3 h-[26rem] w-[26rem] rounded-full bg-accent-light/20 blur-3xl will-change-transform motion-safe:animate-aurora-alt" />
+        <div className="absolute -left-40 bottom-0 h-[22rem] w-[22rem] rounded-full bg-signal/10 blur-3xl will-change-transform motion-safe:animate-aurora-alt" />
+      </div>
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 -z-10 bg-grid bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_80%_70%_at_60%_30%,black,transparent)]"
       />
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-hero-glow" />
+      <div aria-hidden="true" className="noise pointer-events-none absolute inset-0 -z-10" />
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent"
@@ -41,7 +48,7 @@ export default function Hero() {
           <h1 id="hero-title" className="mt-7 text-display font-semibold text-white">
             {titleLines.map((line, i) => (
               <span key={i} className="block">
-                {i === titleLines.length - 1 ? <span className="text-accent-soft">{line}</span> : line}
+                {i === titleLines.length - 1 ? <span className="gradient-text">{line}</span> : line}
               </span>
             ))}
           </h1>
@@ -52,11 +59,7 @@ export default function Hero() {
           <div style={rise(220)} className={`${RISE} mt-9 flex flex-col gap-3 sm:flex-row`}>
             <a href="#contact" className="btn-primary group">
               {t.hero.ctaPrimary}
-              <ArrowRight
-                size={16}
-                aria-hidden="true"
-                className="transition-transform duration-200 group-hover:translate-x-1"
-              />
+              <ArrowRight size={16} aria-hidden="true" className="transition-transform duration-200 group-hover:translate-x-1" />
             </a>
             <a href="#roi" className="btn-ghost-dark">
               {t.hero.ctaSecondary}
@@ -71,16 +74,11 @@ export default function Hero() {
             {t.hero.badge}
           </p>
 
-          <dl
-            style={rise(380)}
-            className={`${RISE} mt-10 grid max-w-lg grid-cols-3 gap-4 border-t border-white/10 pt-7`}
-          >
+          <dl style={rise(380)} className={`${RISE} mt-10 grid max-w-lg grid-cols-3 gap-4 border-t border-white/10 pt-7`}>
             {t.hero.stats.map((stat) => (
               <div key={stat.label} className="flex flex-col-reverse">
                 <dt className="mt-1.5 text-xs leading-snug text-navy-300">{stat.label}</dt>
-                <dd className="font-heading text-2xl font-semibold tracking-tight text-white sm:text-[1.75rem]">
-                  {stat.value}
-                </dd>
+                <dd className="font-heading text-2xl font-semibold tracking-tight text-white sm:text-[1.75rem]">{stat.value}</dd>
               </div>
             ))}
           </dl>

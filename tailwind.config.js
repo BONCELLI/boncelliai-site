@@ -64,11 +64,27 @@ export default {
           from: { transform: "translateX(0)" },
           to: { transform: "translateX(-50%)" },
         },
+        "marquee-reverse": {
+          from: { transform: "translateX(-50%)" },
+          to: { transform: "translateX(0)" },
+        },
+        // Slow drift for the hero's blurred colour blobs.
+        aurora: {
+          "0%, 100%": { transform: "translate3d(0, 0, 0) scale(1)" },
+          "50%": { transform: "translate3d(70px, -50px, 0) scale(1.18)" },
+        },
+        "aurora-alt": {
+          "0%, 100%": { transform: "translate3d(0, 0, 0) scale(1.08)" },
+          "50%": { transform: "translate3d(-60px, 60px, 0) scale(0.92)" },
+        },
       },
       animation: {
         "rise-in": "rise-in 0.8s cubic-bezier(0.22,1,0.36,1) both",
         "slide-in": "slide-in 0.3s ease-out both",
-        marquee: "marquee 40s linear infinite",
+        marquee: "marquee 60s linear infinite",
+        "marquee-reverse": "marquee-reverse 70s linear infinite",
+        aurora: "aurora 18s ease-in-out infinite",
+        "aurora-alt": "aurora-alt 24s ease-in-out infinite",
       },
     },
   },

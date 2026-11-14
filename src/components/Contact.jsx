@@ -1,7 +1,18 @@
-import { useState } from "react";
-import { AlertCircle, ArrowRight, CalendarDays, CheckCircle2, ExternalLink, Loader2, Mail, ShieldCheck } from "lucide-react";
+import { useEffect, useState } from "react";
+import {
+  AlertCircle,
+  ArrowRight,
+  CalendarDays,
+  CheckCircle2,
+  ExternalLink,
+  Loader2,
+  Mail,
+  ShieldCheck,
+  Sparkles,
+} from "lucide-react";
 import { useLanguage } from "../i18n/LanguageContext.jsx";
 import { siteConfig } from "../siteConfig.js";
+import { PREFILL_EVENT } from "../lib/prefill.js";
 import SectionHeading from "./SectionHeading.jsx";
 
 const STATUS = { IDLE: "idle", SUBMITTING: "submitting", SUCCESS: "success", MAILTO: "mailto", ERROR: "error" };
@@ -12,6 +23,23 @@ export default function Contact() {
   const x = t.contactExtra;
   const [form, setForm] = useState(EMPTY_FORM);
   const [status, setStatus] = useState(STATUS.IDLE);
+  const [prefilled, setPrefilled] = useState(false);
+
+  // The diagnostic quiz and the package cards can prefill topic + message.
+  useEffect(() => {
+    const onPrefill = (e) => {
+      const { topicIndex, message } = e.detail || {};
+      setForm((prev) => ({
+        ...prev,
+        topic: topicIndex !== undefined && x.topics[topicIndex] ? x.topics[topicIndex] : prev.topic,
+        message: message ? (prev.message.trim() ? `${prev.message.trim()}\n\n${message}` : message) : prev.message,
+      }));
+      setPrefilled(Boolean(message));
+      setStatus(STATUS.IDLE);
+    };
+    window.addEventListener(PREFILL_EVENT, onPrefill);
+    return () => window.removeEventListener(PREFILL_EVENT, onPrefill);
+  }, [x.topics]);
 
   const handleChange = (e) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -45,6 +73,7 @@ export default function Contact() {
         setStatus(STATUS.MAILTO);
       }
       setForm(EMPTY_FORM);
+      setPrefilled(false);
     } catch (error) {
       setStatus(STATUS.ERROR);
     }
@@ -53,17 +82,14 @@ export default function Contact() {
   const submitting = status === STATUS.SUBMITTING;
 
   return (
-    <section
-      id="contact"
-      aria-labelledby="contact-title"
-      className="on-dark relative isolate overflow-hidden bg-navy-900 py-24 sm:py-32"
-    >
+    <section id="contact" aria-labelledby="contact-title" className="on-dark relative isolate overflow-hidden bg-navy-900 py-24 sm:py-32">
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-hero-glow" />
+      <div aria-hidden="true" className="noise pointer-events-none absolute inset-0 -z-10" />
       <div className="mx-auto grid max-w-6xl gap-12 px-4 sm:px-6 lg:grid-cols-[1fr_1.35fr] lg:gap-16">
         <div>
           <SectionHeading
             id="contact-title"
-            index="07"
+            index="10"
             dark
             align="left"
             eyebrow={t.contact.eyebrow}
@@ -198,6 +224,12 @@ export default function Contact() {
               placeholder={t.contact.form.messagePlaceholder}
               className="w-full resize-y rounded-xl border border-navy-200 bg-white px-4 py-3 text-base text-navy-900 outline-none transition-[border-color,box-shadow] duration-200 placeholder:text-navy-400 focus:border-accent focus:shadow-[0_0_0_4px_rgba(91,75,255,0.15)] sm:text-sm"
             />
+            {prefilled && (
+              <p className="mt-2 flex items-center gap-1.5 text-xs font-medium text-emerald-700" role="status">
+                <Sparkles size={12} aria-hidden="true" />
+                {x.prefilled}
+              </p>
+            )}
           </div>
 
           {/* Honeypot — hidden from people and assistive tech. */}
@@ -212,9 +244,7 @@ export default function Contact() {
               disabled={submitting}
               className="btn-primary group w-full disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto"
             >
-              {submitting ? (
-                <Loader2 size={16} aria-hidden="true" className="animate-spin" />
-              ) : null}
+              {submitting ? <Loader2 size={16} aria-hidden="true" className="animate-spin" /> : null}
               {submitting ? t.contact.form.submitting : t.contact.form.submit}
               {!submitting && (
                 <ArrowRight size={16} aria-hidden="true" className="transition-transform duration-200 group-hover:translate-x-1" />

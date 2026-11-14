@@ -4,12 +4,15 @@ import { useLanguage } from "../i18n/LanguageContext.jsx";
 import LanguageSwitcher from "./LanguageSwitcher.jsx";
 import Logo from "./Logo.jsx";
 
-const SECTION_IDS = ["services", "roi", "process", "about", "faq", "contact"];
+const SECTION_IDS = ["services", "cases", "offers", "roi", "process", "faq", "contact"];
+// Shown in the desktop bar only from the xl breakpoint (keeps lg bars uncrowded).
+const XL_ONLY = new Set(["process", "faq"]);
 
 export default function Navbar() {
   const { t } = useLanguage();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [active, setActive] = useState("");
   const toggleRef = useRef(null);
 
   useEffect(() => {
@@ -17,6 +20,22 @@ export default function Navbar() {
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Scroll spy: the section crossing the upper third of the viewport is "current".
+  useEffect(() => {
+    if (!("IntersectionObserver" in window)) return undefined;
+    const targets = ["top", ...SECTION_IDS].map((id) => document.getElementById(id)).filter(Boolean);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActive(entry.target.id === "top" ? "" : entry.target.id);
+        });
+      },
+      { rootMargin: "-30% 0px -60% 0px" }
+    );
+    targets.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
   }, []);
 
   // Escape closes the mobile menu and returns focus to its toggle.
@@ -54,18 +73,34 @@ export default function Navbar() {
 
           <nav aria-label={t.a11y.mainNav} className="hidden lg:block">
             <ul className="flex items-center gap-0.5 xl:gap-1">
-              {links.map((link) => (
-                <li key={link.id}>
-                  <a
-                    href={`#${link.id}`}
-                    className={`whitespace-nowrap rounded-full px-2.5 py-2 text-sm xl:px-3.5 font-medium transition-colors duration-200 ${
-                      solid ? "text-navy-600 hover:bg-navy-50 hover:text-navy-900" : "text-white/80 hover:bg-white/10 hover:text-white"
-                    }`}
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
+              {links.map((link) => {
+                const current = active === link.id;
+                return (
+                  <li key={link.id} className={XL_ONLY.has(link.id) ? "hidden xl:block" : ""}>
+                    <a
+                      href={`#${link.id}`}
+                      aria-current={current ? "true" : undefined}
+                      className={`relative whitespace-nowrap rounded-full px-2.5 py-2 text-sm font-medium transition-colors duration-200 xl:px-3.5 ${
+                        solid
+                          ? current
+                            ? "bg-navy-50 text-navy-900"
+                            : "text-navy-600 hover:bg-navy-50 hover:text-navy-900"
+                          : current
+                            ? "bg-white/10 text-white"
+                            : "text-white/80 hover:bg-white/10 hover:text-white"
+                      }`}
+                    >
+                      {link.label}
+                      <span
+                        aria-hidden="true"
+                        className={`absolute -bottom-0.5 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-accent transition-opacity duration-200 ${
+                          current ? "opacity-100" : "opacity-0"
+                        }`}
+                      />
+                    </a>
+                  </li>
+                );
+              })}
             </ul>
           </nav>
 
@@ -102,17 +137,17 @@ export default function Navbar() {
           }`}
         >
           <div className={`overflow-hidden ${mobileOpen ? "" : "invisible"}`}>
-            <nav
-              aria-label={t.a11y.mainNav}
-              className="mt-2 rounded-2xl border border-navy-100 bg-paper p-3 shadow-card"
-            >
+            <nav aria-label={t.a11y.mainNav} className="mt-2 rounded-2xl border border-navy-100 bg-paper p-3 shadow-card">
               <ul className="flex flex-col">
                 {links.map((link) => (
                   <li key={link.id}>
                     <a
                       href={`#${link.id}`}
                       onClick={close}
-                      className="flex items-center justify-between rounded-xl px-4 py-3.5 text-base font-medium text-navy-800 transition-colors duration-200 hover:bg-navy-50"
+                      aria-current={active === link.id ? "true" : undefined}
+                      className={`flex items-center justify-between rounded-xl px-4 py-3.5 text-base font-medium transition-colors duration-200 hover:bg-navy-50 ${
+                        active === link.id ? "bg-navy-50 text-navy-900" : "text-navy-800"
+                      }`}
                     >
                       {link.label}
                     </a>

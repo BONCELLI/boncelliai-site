@@ -34,7 +34,7 @@ export default function RoiCalculator() {
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <SectionHeading
           id="roi-title"
-          index="02"
+          index="03"
           dark
           eyebrow={t.roi.eyebrow}
           title={t.roi.title}
