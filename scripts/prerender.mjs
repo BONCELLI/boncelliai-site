@@ -1,7 +1,7 @@
 // Turns the client build into one static, fully rendered HTML page per
 // page and language (dist/index.html = FR home, dist/en/index.html = EN home,
 // dist/offres/index.html, dist/en/packages/index.html, ...), then writes
-// sitemap.xml and robots.txt. Run after `vite build` + `vite build --ssr`.
+// 404.html, sitemap.xml and robots.txt. Run after `vite build` + `vite build --ssr`.
 import { mkdir, readdir, readFile, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
@@ -60,6 +60,18 @@ for (const { lang, page, out } of pages) {
   await writeFile(out, html);
   console.log(`prerendered ${lang}/${page} -> ${path.relative(root, out)}`);
 }
+
+// 404.html: Cloudflare Pages serves it with a real 404 status for unknown
+// URLs (instead of the home page with 200, a "soft 404" for Google). Same
+// content as the FR home so visitors can keep browsing, but noindex and no
+// canonical/hreflang.
+const home = await readFile(path.join(dist, "index.html"), "utf8");
+const notFound = home
+  .replace(/<title>[^<]*<\/title>/, "<title>Page introuvable — BoncelliAI</title>")
+  .replace(/\s*<link rel="(canonical|alternate)"[^>]*>/g, "")
+  .replace("</title>", '</title>\n    <meta name="robots" content="noindex" />');
+require(notFound.includes('content="noindex"'), "404 title");
+await writeFile(path.join(dist, "404.html"), notFound);
 
 const today = new Date().toISOString().slice(0, 10);
 const alternates = (page) =>
